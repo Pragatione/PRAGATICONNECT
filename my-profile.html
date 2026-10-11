@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit My Profile - Pragati Connect (प्रगति कनेक्ट)</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏗️</text></svg>">
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-light">
+  <div id="navbar-container"></div>
+
+  <main class="py-5">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-9">
+          <div class="card border-0 shadow-lg rounded-4 p-4 p-md-5 bg-white">
+            <div class="d-flex justify-content-between align-items-center border-bottom pb-3 mb-4">
+              <div>
+                <span class="badge bg-primary text-white px-3 py-1 rounded-pill" id="userRoleBadge">Account Profile</span>
+                <h3 class="fw-bold text-primary mt-1 mb-0" data-i18n="manage_my_profile">Manage My Profile</h3>
+              </div>
+              <a href="#" id="backToDashBtn" class="btn btn-outline-secondary btn-sm">
+                <i class="bi bi-arrow-left me-1"></i> <span data-i18n="btn_back_dash">Back to Dashboard</span>
+              </a>
+            </div>
+
+            <!-- Contractor Profile Edit Form -->
+            <form id="contractorEditForm" class="d-none">
+              <h5 class="fw-bold text-primary mb-3"><i class="bi bi-person-workspace text-warning me-2"></i> <span data-i18n="contractor_details">Contractor Details</span></h5>
+              <div class="row g-3 mb-4">
+                <div class="col-md-6">
+                  <label class="form-label fw-semibold small" data-i18n="label_firm_name">Firm / Business Name</label>
+                  <input type="text" class="form-control" id="cEditFirmName" required>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label fw-semibold small" data-i18n="label_owner_name">Proprietor Name</label>
+                  <input type="text" class="form-control" id="cEditOwnerName" required>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label fw-semibold small" data-i18n="label_phone">Phone (WhatsApp)</label>
+                  <input type="tel" class="form-control" id="cEditPhone" required>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label fw-semibold small" data-i18n="label_city">City</label>
+                  <input type="text" class="form-control" id="cEditCity" required>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label fw-semibold small" data-i18n="label_state">State</label>
+                  <input type="text" class="form-control" id="cEditState" required>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label fw-semibold small" data-i18n="label_experience">Years of Experience</label>
+                  <input type="number" class="form-control" id="cEditExp" required>
+                </div>
+                <div class="col-12">
+                  <label class="form-label fw-semibold small" data-i18n="ph_cover_note">About Firm & Fleet (Max 500 chars)</label>
+                  <textarea class="form-control" id="cEditAbout" rows="3" maxlength="500"></textarea>
+                </div>
+              </div>
+
+              <h5 class="fw-bold text-primary mb-3"><i class="bi bi-people-fill text-primary me-2"></i> <span data-i18n="manpower_strength">Manpower Strength</span></h5>
+              <div class="row g-3 mb-4">
+                <div class="col-md-4">
+                  <label class="form-label fw-semibold small" data-i18n="label_workers">Total Workers</label>
+                  <input type="number" class="form-control" id="cEditWorkers" required>
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label fw-semibold small" data-i18n="label_supervisors">Supervisors</label>
+                  <input type="number" class="form-control" id="cEditSupervisors">
+                </div>
+                <div class="col-md-4">
+                  <label class="form-label fw-semibold small" data-i18n="label_engineers">Site Engineers</label>
+                  <input type="number" class="form-control" id="cEditEngineers">
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-end gap-3 pt-3 border-top">
+                <button type="submit" class="btn btn-orange px-4 fw-bold" data-i18n="btn_save_contractor">Save Contractor Changes</button>
+              </div>
+            </form>
+
+            <!-- Company Profile Edit Form -->
+            <form id="companyEditForm" class="d-none">
+              <h5 class="fw-bold text-primary mb-3"><i class="bi bi-building text-primary me-2"></i> <span data-i18n="corporate_details">Corporate Details</span></h5>
+              <div class="row g-3 mb-4">
+                <div class="col-md-6">
+                  <label class="form-label fw-semibold small" data-i18n="label_company_name">Company Name</label>
+                  <input type="text" class="form-control" id="coEditName" required>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label fw-semibold small" data-i18n="label_contact_person">Contact Person</label>
+                  <input type="text" class="form-control" id="coEditPerson" required>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label fw-semibold small" data-i18n="label_designation">Designation</label>
+                  <input type="text" class="form-control" id="coEditDesig" required>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label fw-semibold small" data-i18n="label_phone">Phone</label>
+                  <input type="tel" class="form-control" id="coEditPhone" required>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label fw-semibold small" data-i18n="label_city">City</label>
+                  <input type="text" class="form-control" id="coEditCity" required>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label fw-semibold small" data-i18n="label_state">State</label>
+                  <input type="text" class="form-control" id="coEditState" required>
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label fw-semibold small" data-i18n="label_gst">GSTIN Number</label>
+                  <input type="text" class="form-control" id="coEditGst">
+                </div>
+                <div class="col-md-6">
+                  <label class="form-label fw-semibold small" data-i18n="label_website">Website</label>
+                  <input type="url" class="form-control" id="coEditWeb">
+                </div>
+                <div class="col-12">
+                  <label class="form-label fw-semibold small" data-i18n="label_about">About Organization</label>
+                  <textarea class="form-control" id="coEditAbout" rows="3"></textarea>
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-end gap-3 pt-3 border-top">
+                <button type="submit" class="btn btn-primary-custom px-4 fw-bold" data-i18n="btn_save_company">Save Company Changes</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer-container"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module">
+    import { renderNavbar, renderFooter, getCurrentUser, setCurrentUser, requireAuth, getCollection, updateDocument, showToast } from './js/common.js';
+    import { applyTranslations } from './js/i18n.js';
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      if (!requireAuth()) return;
+
+      renderNavbar('my-profile');
+      renderFooter();
+      applyTranslations();
+
+      const user = getCurrentUser();
+      const isContractor = user.userType === 'contractor';
+      document.getElementById('backToDashBtn').href = isContractor ? 'dashboard-contractor.html' : 'dashboard-company.html';
+      document.getElementById('userRoleBadge').textContent = isContractor ? 'Contractor Account' : 'Company Account';
+
+      if (isContractor) {
+        const cForm = document.getElementById('contractorEditForm');
+        cForm.classList.remove('d-none');
+
+        const contractors = await getCollection('contractors');
+        const cDoc = contractors.find(c => c.uid === user.uid) || contractors[0] || {};
+
+        document.getElementById('cEditFirmName').value = cDoc.firmName || user.firmName || '';
+        document.getElementById('cEditOwnerName').value = cDoc.ownerName || user.displayName || '';
+        document.getElementById('cEditPhone').value = cDoc.phone || user.phone || '';
+        document.getElementById('cEditCity').value = cDoc.city || user.city || '';
+        document.getElementById('cEditState').value = cDoc.state || user.state || '';
+        document.getElementById('cEditExp').value = cDoc.yearsOfExperience || 5;
+        document.getElementById('cEditAbout').value = cDoc.aboutUs || '';
+        document.getElementById('cEditWorkers').value = cDoc.totalWorkers || 50;
+        document.getElementById('cEditSupervisors').value = cDoc.supervisors || 4;
+        document.getElementById('cEditEngineers').value = cDoc.engineers || 2;
+
+        cForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const updated = {
+            firmName: document.getElementById('cEditFirmName').value.trim(),
+            ownerName: document.getElementById('cEditOwnerName').value.trim(),
+            phone: document.getElementById('cEditPhone').value.trim(),
+            city: document.getElementById('cEditCity').value.trim(),
+            state: document.getElementById('cEditState').value.trim(),
+            yearsOfExperience: Number(document.getElementById('cEditExp').value),
+            aboutUs: document.getElementById('cEditAbout').value.trim(),
+            totalWorkers: Number(document.getElementById('cEditWorkers').value),
+            supervisors: Number(document.getElementById('cEditSupervisors').value),
+            engineers: Number(document.getElementById('cEditEngineers').value)
+          };
+
+          await updateDocument('contractors', cDoc.uid || user.uid, updated);
+          user.firmName = updated.firmName;
+          user.displayName = updated.ownerName;
+          setCurrentUser(user);
+
+          showToast('Profile updated successfully!', 'success');
+        });
+
+      } else {
+        const coForm = document.getElementById('companyEditForm');
+        coForm.classList.remove('d-none');
+
+        const companies = await getCollection('companies');
+        const compDoc = companies.find(c => c.uid === user.uid) || companies[0] || {};
+
+        document.getElementById('coEditName').value = compDoc.companyName || user.companyName || '';
+        document.getElementById('coEditPerson').value = compDoc.contactPerson || user.displayName || '';
+        document.getElementById('coEditDesig').value = compDoc.designation || '';
+        document.getElementById('coEditPhone').value = compDoc.phone || user.phone || '';
+        document.getElementById('coEditCity').value = compDoc.city || user.city || '';
+        document.getElementById('coEditState').value = compDoc.state || user.state || '';
+        document.getElementById('coEditGst').value = compDoc.gstNumber || '';
+        document.getElementById('coEditWeb').value = compDoc.website || '';
+        document.getElementById('coEditAbout').value = compDoc.aboutCompany || '';
+
+        coForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          const updated = {
+            companyName: document.getElementById('coEditName').value.trim(),
+            contactPerson: document.getElementById('coEditPerson').value.trim(),
+            designation: document.getElementById('coEditDesig').value.trim(),
+            phone: document.getElementById('coEditPhone').value.trim(),
+            city: document.getElementById('coEditCity').value.trim(),
+            state: document.getElementById('coEditState').value.trim(),
+            gstNumber: document.getElementById('coEditGst').value.trim(),
+            website: document.getElementById('coEditWeb').value.trim(),
+            aboutCompany: document.getElementById('coEditAbout').value.trim()
+          };
+
+          await updateDocument('companies', compDoc.uid || user.uid, updated);
+          user.companyName = updated.companyName;
+          user.displayName = updated.contactPerson;
+          setCurrentUser(user);
+
+          showToast('Company profile updated successfully!', 'success');
+        });
+      }
+    });
+  </script>
+</body>
+</html>

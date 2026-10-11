@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Post Work Requirement - Pragati Connect (प्रगति कनेक्ट)</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏗️</text></svg>">
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-light">
+  <div id="navbar-container"></div>
+
+  <main class="py-5">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-9">
+          <div class="card border-0 shadow-lg rounded-4 p-4 p-md-5 bg-white">
+            <div class="d-flex align-items-center justify-content-between border-bottom pb-3 mb-4">
+              <div>
+                <span class="badge bg-warning text-dark px-3 py-1 rounded-pill fw-semibold">EPC Subcontracting</span>
+                <h3 class="fw-bold text-primary mt-1 mb-0" data-i18n="btn_publish_requirement">Publish Work Requirement</h3>
+              </div>
+              <a href="dashboard-company.html" class="btn btn-outline-secondary btn-sm">
+                <i class="bi bi-arrow-left me-1"></i> <span data-i18n="btn_back">Back to Dashboard</span>
+              </a>
+            </div>
+
+            <p class="text-secondary small mb-4">
+              Publish your project scope to receive structured bids from verified contractors with audited machinery fleets.
+            </p>
+
+            <form id="postWorkForm">
+              <!-- Section 1: Project Details -->
+              <div class="mb-4">
+                <h5 class="fw-bold text-primary mb-3"><i class="bi bi-geo-alt-fill text-danger me-2"></i> 1. Project Location & Name</h5>
+                <div class="row g-3">
+                  <div class="col-12">
+                    <label class="form-label fw-semibold small" data-i18n="label_project_name">Project Name / Package Title <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="projectName" placeholder="e.g. Pune Metro Viaduct - Segment Pier Casting & Erection" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold small" data-i18n="label_city">Site City <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="postCity" placeholder="e.g. Pune" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold small" data-i18n="label_state">Site State <span class="text-danger">*</span></label>
+                    <select class="form-select" id="postState" required>
+                      <option value="">Select State</option>
+                      <option value="Maharashtra" selected>Maharashtra</option>
+                      <option value="Karnataka">Karnataka</option>
+                      <option value="Madhya Pradesh">Madhya Pradesh</option>
+                      <option value="Gujarat">Gujarat</option>
+                      <option value="Tamil Nadu">Tamil Nadu</option>
+                      <option value="Telangana">Telangana</option>
+                      <option value="Delhi NCR">Delhi NCR</option>
+                      <option value="Uttar Pradesh">Uttar Pradesh</option>
+                      <option value="Rajasthan">Rajasthan</option>
+                    </select>
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label fw-semibold small">Exact Site Location / Landmark</label>
+                    <input type="text" class="form-control" id="projectLocation" placeholder="e.g. Shivajinagar to Hinjewadi Phase 3 Alignment">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Section 2: Requirements & Scope -->
+              <div class="mb-4">
+                <h5 class="fw-bold text-primary mb-3"><i class="bi bi-tools text-warning me-2"></i> 2. Trade & Commercial Scope</h5>
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold small">Primary Trade Required <span class="text-danger">*</span></label>
+                    <select class="form-select" id="tradeRequired" required>
+                      <option value="Civil">Civil & Earthwork</option>
+                      <option value="Concrete" selected>Concrete & Precast</option>
+                      <option value="MEP">MEP & HVAC</option>
+                      <option value="Structural Steel">Structural Steel & PEB</option>
+                      <option value="Road/Highway">Road / Highway</option>
+                      <option value="Waterproofing">Waterproofing</option>
+                      <option value="Interior">Interior Fitouts</option>
+                      <option value="Demolition">Demolition</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold small">Estimated Budget Range <span class="text-danger">*</span></label>
+                    <select class="form-select" id="estimatedBudget" required>
+                      <option value="Below ₹10 Lakh">Below ₹10 Lakh</option>
+                      <option value="₹10-50 Lakh">₹10-50 Lakh</option>
+                      <option value="₹50 Lakh - ₹1 Cr">₹50 Lakh - ₹1 Cr</option>
+                      <option value="₹1-5 Cr">₹1-5 Cr</option>
+                      <option value="₹5-10 Cr" selected>₹5-10 Cr</option>
+                      <option value="₹10-50 Cr">₹10-50 Cr</option>
+                      <option value="Above ₹50 Cr">Above ₹50 Cr</option>
+                    </select>
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label fw-semibold small">Detailed Scope of Work <span class="text-danger">*</span></label>
+                    <textarea class="form-control" id="scopeOfWork" rows="4" placeholder="Detail the bill of quantities (BOQ), technical standards (IS/IRC codes), segment counts, concrete grades, and supply vs labor scope..." required></textarea>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold small">Estimated Duration <span class="text-danger">*</span></label>
+                    <select class="form-select" id="duration" required>
+                      <option value="1 month">1 Month</option>
+                      <option value="3 months">3 Months</option>
+                      <option value="6 months" selected>6 Months</option>
+                      <option value="9 months">9 Months</option>
+                      <option value="1 year">1 Year</option>
+                      <option value="2+ years">2+ Years</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Section 3: Contractor Eligibility & Fleet Requirements -->
+              <div class="mb-4">
+                <h5 class="fw-bold text-primary mb-3"><i class="bi bi-shield-check text-success me-2"></i> 3. Contractor Prerequisites</h5>
+                <div class="row g-3">
+                  <div class="col-md-4">
+                    <label class="form-label fw-semibold small">Min Years of Experience <span class="text-danger">*</span></label>
+                    <input type="number" class="form-control" id="minExperience" value="5" min="1" required>
+                  </div>
+                  <div class="col-md-8">
+                    <label class="form-label fw-semibold small">Mandatory Machinery Required</label>
+                    <input type="text" class="form-control" id="machineryRequired" placeholder="e.g. 2x Transit Mixers, 1x Concrete Pump 36m, 1x Mobile Crane 20T">
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label fw-semibold small">Manpower Deployment Expected</label>
+                    <input type="text" class="form-control" id="manpowerRequired" placeholder="e.g. 40+ skilled shuttering carpenters, bar benders and 2 qualified site safety supervisors">
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label fw-semibold small d-block mb-2">Required Certifications</label>
+                    <div class="d-flex flex-wrap gap-3">
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="postCert" value="Safety Certified" id="reqSafety" checked>
+                        <label class="form-check-label small" for="reqSafety">Safety Certified</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="postCert" value="ISO Certified" id="reqISO" checked>
+                        <label class="form-check-label small" for="reqISO">ISO Certified</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="postCert" value="CPWD Registered" id="reqCPWD">
+                        <label class="form-check-label small" for="reqCPWD">CPWD Registered</label>
+                      </div>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" name="postCert" value="PWD Class I" id="reqPWD1">
+                        <label class="form-check-label small" for="reqPWD1">PWD Class I</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Section 4: Timelines -->
+              <div class="mb-4">
+                <h5 class="fw-bold text-primary mb-3"><i class="bi bi-calendar-check text-primary me-2"></i> 4. Key Milestones</h5>
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold small">Mobilization / Start Date <span class="text-danger">*</span></label>
+                    <input type="date" class="form-control" id="startDate" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold small">Bidding Application Deadline <span class="text-danger">*</span></label>
+                    <input type="date" class="form-control" id="applicationDeadline" required>
+                  </div>
+                </div>
+              </div>
+
+              <div class="d-flex justify-content-end gap-3 pt-3 border-top">
+                <a href="dashboard-company.html" class="btn btn-light px-4" data-i18n="btn_cancel">Cancel</a>
+                <button type="submit" class="btn btn-orange px-5 py-2 fw-bold" id="postSubmitBtn">
+                  <i class="bi bi-send-check me-1"></i> <span data-i18n="btn_publish_requirement">Post Work Requirement</span>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer-container"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module">
+    import { renderNavbar, renderFooter, requireAuth, showToast } from './js/common.js';
+    import { submitWorkPosting } from './js/company.js';
+    import { applyTranslations } from './js/i18n.js';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      if (!requireAuth('company')) return;
+
+      renderNavbar('post-work');
+      renderFooter();
+      applyTranslations();
+
+      // Set default dates
+      const today = new Date();
+      const in20Days = new Date(Date.now() + 20 * 24 * 3600 * 1000);
+      const in1Month = new Date(Date.now() + 30 * 24 * 3600 * 1000);
+
+      document.getElementById('applicationDeadline').value = in20Days.toISOString().split('T')[0];
+      document.getElementById('startDate').value = in1Month.toISOString().split('T')[0];
+
+      document.getElementById('postWorkForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const btn = document.getElementById('postSubmitBtn');
+        btn.disabled = true;
+        btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> Publishing...';
+
+        const certs = Array.from(document.querySelectorAll('input[name="postCert"]:checked')).map(cb => cb.value);
+
+        const formData = {
+          projectName: document.getElementById('projectName').value.trim(),
+          projectLocation: document.getElementById('projectLocation').value.trim(),
+          city: document.getElementById('postCity').value.trim(),
+          state: document.getElementById('postState').value,
+          tradeRequired: document.getElementById('tradeRequired').value,
+          scopeOfWork: document.getElementById('scopeOfWork').value.trim(),
+          estimatedBudget: document.getElementById('estimatedBudget').value,
+          duration: document.getElementById('duration').value,
+          minExperience: document.getElementById('minExperience').value,
+          machineryRequired: document.getElementById('machineryRequired').value.trim(),
+          manpowerRequired: document.getElementById('manpowerRequired').value.trim(),
+          certificationsRequired: certs,
+          startDate: document.getElementById('startDate').value,
+          applicationDeadline: document.getElementById('applicationDeadline').value
+        };
+
+        const res = await submitWorkPosting(formData);
+        if (res.success) {
+          setTimeout(() => {
+            window.location.href = 'dashboard-company.html';
+          }, 1200);
+        } else {
+          btn.disabled = false;
+          btn.innerHTML = '<i class="bi bi-send-check me-1"></i> Post Work Requirement';
+        }
+      });
+    });
+  </script>
+</body>
+</html>

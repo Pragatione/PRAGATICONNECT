@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Browse Construction Contractors - Pragati Connect (प्रगति कनेक्ट)</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏗️</text></svg>">
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-light">
+  <div id="navbar-container"></div>
+
+  <main class="py-4">
+    <div class="container">
+      <!-- Page Header -->
+      <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+        <div>
+          <h3 class="fw-bold text-primary mb-1" data-i18n="find_contractors_heading">Find & Verify Trade Contractors</h3>
+          <p class="text-secondary small mb-0" data-i18n="find_contractors_sub">Search specialized civil, MEP, earthmoving, and precast subcontractors across India.</p>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+          <label class="small text-secondary fw-semibold text-nowrap mb-0" data-i18n="label_sort_by">Sort By:</label>
+          <select class="form-select form-select-sm" id="sortBy" style="width: 170px;">
+            <option value="relevance">Relevance</option>
+            <option value="exp_desc">Experience (High to Low)</option>
+            <option value="rating_desc">Highest Rating</option>
+            <option value="projects_desc">Most Projects</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Search Bar -->
+      <div class="card border-0 shadow-sm rounded-4 p-3 mb-4 bg-white">
+        <div class="input-group">
+          <span class="input-group-text bg-transparent border-end-0 text-primary fs-5">
+            <i class="bi bi-search"></i>
+          </span>
+          <input type="text" class="form-control border-start-0 py-2" id="searchQuery" data-i18n-ph="ph_search_contractors" placeholder="Search by firm name, proprietor, trade (e.g. Excavation, PEB, MEP) or city...">
+          <button class="btn btn-orange px-4 fw-semibold" id="searchBtn" data-i18n="btn_search">Search</button>
+        </div>
+      </div>
+
+      <div class="row g-4">
+        <!-- Filter Sidebar (Left) -->
+        <div class="col-lg-3">
+          <div class="card border-0 shadow-sm rounded-4 p-4 bg-white sticky-top" style="top: 85px;">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h6 class="fw-bold text-primary mb-0"><i class="bi bi-funnel me-1"></i> <span data-i18n="label_filter_by">Filter By</span></h6>
+              <button class="btn btn-link btn-sm text-secondary p-0 text-decoration-none" id="resetFiltersBtn" data-i18n="btn_reset_all">Reset All</button>
+            </div>
+
+            <!-- Availability Toggle -->
+            <div class="form-check form-switch mb-3 pb-3 border-bottom">
+              <input class="form-check-input" type="checkbox" id="availableOnlyFilter" checked>
+              <label class="form-check-label small fw-semibold" for="availableOnlyFilter" data-i18n="label_available_now">Available For Work Now</label>
+            </div>
+
+            <!-- State Filter -->
+            <div class="mb-3">
+              <label class="form-label small fw-semibold" data-i18n="label_state">State / Region</label>
+              <select class="form-select form-select-sm" id="stateFilter">
+                <option value="">All States (Pan India)</option>
+                <option value="Maharashtra">Maharashtra</option>
+                <option value="Madhya Pradesh">Madhya Pradesh</option>
+                <option value="Karnataka">Karnataka</option>
+                <option value="Telangana">Telangana</option>
+                <option value="Gujarat">Gujarat</option>
+                <option value="Tamil Nadu">Tamil Nadu</option>
+                <option value="Delhi NCR">Delhi NCR</option>
+                <option value="Uttar Pradesh">Uttar Pradesh</option>
+              </select>
+            </div>
+
+            <!-- Experience Filter -->
+            <div class="mb-3">
+              <label class="form-label small fw-semibold" data-i18n="label_experience">Min Experience (Years)</label>
+              <select class="form-select form-select-sm" id="experienceFilter">
+                <option value="0">Any Experience</option>
+                <option value="3">3+ Years</option>
+                <option value="5">5+ Years</option>
+                <option value="8">8+ Years</option>
+                <option value="12">12+ Years</option>
+              </select>
+            </div>
+
+            <!-- Trades Filter -->
+            <div class="mb-3">
+              <label class="form-label small fw-semibold d-block mb-2">Trade / Specialization</label>
+              <div style="max-height: 180px; overflow-y: auto;" class="pe-1">
+                <div class="form-check form-check-sm mb-1">
+                  <input class="form-check-input" type="checkbox" name="tradeFilter" value="Civil" id="fTradeCivil">
+                  <label class="form-check-label small" for="fTradeCivil" data-i18n="trade_civil">Civil & Earthwork</label>
+                </div>
+                <div class="form-check form-check-sm mb-1">
+                  <input class="form-check-input" type="checkbox" name="tradeFilter" value="MEP" id="fTradeMEP">
+                  <label class="form-check-label small" for="fTradeMEP" data-i18n="trade_mep">MEP & HVAC</label>
+                </div>
+                <div class="form-check form-check-sm mb-1">
+                  <input class="form-check-input" type="checkbox" name="tradeFilter" value="Structural Steel" id="fTradeSteel">
+                  <label class="form-check-label small" for="fTradeSteel" data-i18n="trade_steel">Structural Steel & PEB</label>
+                </div>
+                <div class="form-check form-check-sm mb-1">
+                  <input class="form-check-input" type="checkbox" name="tradeFilter" value="Concrete" id="fTradeConcrete">
+                  <label class="form-check-label small" for="fTradeConcrete" data-i18n="trade_concrete">Concrete & Precast</label>
+                </div>
+                <div class="form-check form-check-sm mb-1">
+                  <input class="form-check-input" type="checkbox" name="tradeFilter" value="Road/Highway" id="fTradeRoad">
+                  <label class="form-check-label small" for="fTradeRoad" data-i18n="trade_highway">Road / Highway</label>
+                </div>
+                <div class="form-check form-check-sm mb-1">
+                  <input class="form-check-input" type="checkbox" name="tradeFilter" value="Waterproofing" id="fTradeWater">
+                  <label class="form-check-label small" for="fTradeWater" data-i18n="trade_waterproofing">Waterproofing</label>
+                </div>
+                <div class="form-check form-check-sm mb-1">
+                  <input class="form-check-input" type="checkbox" name="tradeFilter" value="Interior" id="fTradeInterior">
+                  <label class="form-check-label small" for="fTradeInterior" data-i18n="trade_interior">Interior & Fitouts</label>
+                </div>
+                <div class="form-check form-check-sm mb-1">
+                  <input class="form-check-input" type="checkbox" name="tradeFilter" value="Demolition" id="fTradeDemo">
+                  <label class="form-check-label small" for="fTradeDemo" data-i18n="trade_demolition">Demolition</label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Certifications Filter -->
+            <div class="mb-2">
+              <label class="form-label small fw-semibold d-block mb-2">Certifications</label>
+              <div class="form-check form-check-sm mb-1">
+                <input class="form-check-input" type="checkbox" name="certFilter" value="CPWD Registered" id="fCertCPWD">
+                <label class="form-check-label small" for="fCertCPWD">CPWD Registered</label>
+              </div>
+              <div class="form-check form-check-sm mb-1">
+                <input class="form-check-input" type="checkbox" name="certFilter" value="ISO Certified" id="fCertISO">
+                <label class="form-check-label small" for="fCertISO">ISO Certified</label>
+              </div>
+              <div class="form-check form-check-sm mb-1">
+                <input class="form-check-input" type="checkbox" name="certFilter" value="Safety Certified" id="fCertSafety">
+                <label class="form-check-label small" for="fCertSafety">Safety Certified</label>
+              </div>
+              <div class="form-check form-check-sm mb-1">
+                <input class="form-check-input" type="checkbox" name="certFilter" value="PWD Class I" id="fCertPWD">
+                <label class="form-check-label small" for="fCertPWD">PWD Class I</label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Results Grid (Right) -->
+        <div class="col-lg-9">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h6 class="fw-bold text-secondary mb-0" id="resultsCount">Loading contractors...</h6>
+            <span class="small text-muted"><i class="bi bi-info-circle me-1"></i> Direct contact available to logged-in accounts</span>
+          </div>
+
+          <div class="row g-3" id="contractorsList">
+            <!-- Populated via search.js -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer-container"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module">
+    import { renderNavbar, renderFooter } from './js/common.js';
+    import { initContractorSearch } from './js/search.js';
+    import { applyTranslations } from './js/i18n.js';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderNavbar('browse-contractors');
+      renderFooter();
+      applyTranslations();
+      initContractorSearch();
+    });
+  </script>
+</body>
+</html>

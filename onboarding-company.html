@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Company Onboarding - Pragati Connect (प्रगति कनेक्ट)</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏗️</text></svg>">
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-light">
+  <div id="navbar-container"></div>
+
+  <main class="py-5">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-9 col-xl-8">
+          <div class="card border-0 shadow-lg rounded-4 p-4 p-md-5 bg-white">
+            <div class="text-center mb-4">
+              <span class="badge bg-primary text-white px-3 py-1 rounded-pill fw-semibold">Step 4 of 4 • Company Setup</span>
+              <h3 class="fw-bold text-primary mt-2">Complete Company Profile</h3>
+              <p class="text-secondary small">Set up your enterprise profile to post subcontract tenders, evaluate contractor bids, and hire verified manpower across India.</p>
+            </div>
+
+            <!-- Stepper Progress Header -->
+            <div class="stepper-header position-relative mb-4">
+              <div class="stepper-track">
+                <div class="stepper-track-progress" id="stepTrackProgress" style="width: 0%;"></div>
+              </div>
+              <div class="step-node active" id="node1">
+                <div class="step-circle">1</div>
+                <div class="step-label">Contact & Identity</div>
+              </div>
+              <div class="step-node" id="node2">
+                <div class="step-circle">2</div>
+                <div class="step-label">Corporate Scale</div>
+              </div>
+            </div>
+
+            <form id="companyOnboardingForm">
+              <!-- STEP 1: Contact & Identity -->
+              <div class="onboarding-step" id="step1">
+                <h5 class="fw-bold text-primary border-bottom pb-2 mb-3">
+                  <i class="bi bi-building text-primary me-2"></i> 1. Contact & Corporate Identity
+                </h5>
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold small">Company / Enterprise Name <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="companyName" placeholder="e.g. Larsen & Toubro Heavy Civil" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold small">Contact Person Name <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="contactPerson" placeholder="e.g. Arvind Narayan" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold small">Official Designation <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="designation" placeholder="e.g. Head - Subcontracts & Procurement" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold small">Work Email Address</label>
+                    <input type="email" class="form-control bg-light" id="email" readonly>
+                    <div class="form-text small">Verified via Email OTP</div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold small">Official Phone / Mobile <span class="text-danger">*</span></label>
+                    <input type="tel" class="form-control" id="phone" placeholder="+91 22 6752 5656" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold small">Head Office City <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="city" placeholder="e.g. Mumbai" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold small">State <span class="text-danger">*</span></label>
+                    <select class="form-select" id="state" required>
+                      <option value="">Select State</option>
+                      <option value="Maharashtra" selected>Maharashtra</option>
+                      <option value="Delhi NCR">Delhi NCR</option>
+                      <option value="Karnataka">Karnataka</option>
+                      <option value="Tamil Nadu">Tamil Nadu</option>
+                      <option value="Telangana">Telangana</option>
+                      <option value="Gujarat">Gujarat</option>
+                      <option value="Madhya Pradesh">Madhya Pradesh</option>
+                      <option value="Uttar Pradesh">Uttar Pradesh</option>
+                      <option value="West Bengal">West Bengal</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold small">Official Website</label>
+                    <input type="url" class="form-control" id="website" placeholder="https://www.company.com">
+                  </div>
+                </div>
+
+                <div class="d-flex justify-content-end mt-4">
+                  <button type="button" class="btn btn-primary-custom px-4 py-2 fw-semibold" id="toStep2Btn">
+                    Next: Corporate Scale <i class="bi bi-arrow-right ms-1"></i>
+                  </button>
+                </div>
+              </div>
+
+              <!-- STEP 2: Scale & Operations -->
+              <div class="onboarding-step d-none" id="step2">
+                <h5 class="fw-bold text-primary border-bottom pb-2 mb-3">
+                  <i class="bi bi-briefcase text-primary me-2"></i> 2. Corporate Scale & Procurement Scope
+                </h5>
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold small">Company Classification <span class="text-danger">*</span></label>
+                    <select class="form-select" id="companyType" required>
+                      <option value="EPC Contractor" selected>EPC / Infrastructure Conglomerate</option>
+                      <option value="General Contractor">General Construction Contractor</option>
+                      <option value="Real Estate Developer">Real Estate & Commercial Developer</option>
+                      <option value="Industrial & Energy">Industrial / Power / Oil & Gas EPC</option>
+                      <option value="Government / PSU">Government Department / PSU</option>
+                      <option value="PMC / Consultancy">Project Management Consultant (PMC)</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold small">Company Size (Employees)</label>
+                    <select class="form-select" id="companySize">
+                      <option value="1-50">1 - 50 employees</option>
+                      <option value="50-200">50 - 200 employees</option>
+                      <option value="200-1000">200 - 1,000 employees</option>
+                      <option value="1000+" selected>1,000+ employees</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold small">Annual Turnover (INR)</label>
+                    <select class="form-select" id="annualTurnover">
+                      <option value="Under ₹10 Cr">Under ₹10 Crore</option>
+                      <option value="₹10 Cr - ₹50 Cr">₹10 Crore - ₹50 Crore</option>
+                      <option value="₹50 Cr - ₹250 Cr">₹50 Crore - ₹250 Crore</option>
+                      <option value="₹250 Cr - ₹1000 Cr">₹250 Crore - ₹1,000 Crore</option>
+                      <option value="₹1000 Cr+" selected>₹1,000 Crore+ (Tier 1 EPC)</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold small">GSTIN (Corporate Tax ID)</label>
+                    <input type="text" class="form-control text-uppercase" id="gstNumber" placeholder="27AAACL1234F1Z1">
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label fw-semibold small">Corporate Office Address</label>
+                    <input type="text" class="form-control" id="address" placeholder="e.g. L&T House, Ballard Estate, Mumbai, Maharashtra 400001">
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label fw-semibold small">About Company & Project Types</label>
+                    <textarea class="form-control" id="aboutCompany" rows="3" placeholder="Briefly summarize your landmark projects, ongoing corridors, and typical subcontract packages...">India's premier engineering and construction conglomerate executing landmark bridges, metro rail projects, expressways, and hydro tunnels.</textarea>
+                  </div>
+                </div>
+
+                <div class="d-flex justify-content-between mt-4">
+                  <button type="button" class="btn btn-outline-secondary px-4 py-2" id="backToStep1Btn">
+                    <i class="bi bi-arrow-left me-1"></i> Back
+                  </button>
+                  <button type="submit" class="btn btn-primary-custom px-5 py-2 fw-bold" id="submitCompanyBtn">
+                    <span class="spinner-border spinner-border-sm d-none me-2" id="submitSpinner"></span>
+                    Complete Setup & Go to Dashboard <i class="bi bi-check2-circle ms-1"></i>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer-container"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module">
+    import { renderNavbar, renderFooter, getCurrentUser, showToast } from './js/common.js';
+    import { completeUserOnboarding } from './js/auth.js';
+    import { applyTranslations } from './js/i18n.js';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderNavbar('register');
+      renderFooter();
+      applyTranslations();
+
+      // Check current user session
+      const user = getCurrentUser();
+      const emailField = document.getElementById('email');
+      if (user && user.email) {
+        emailField.value = user.email;
+      } else {
+        const urlParams = new URLSearchParams(window.location.search);
+        emailField.value = urlParams.get('email') || 'procurement@company.com';
+      }
+
+      // Stepper Elements
+      const step1 = document.getElementById('step1');
+      const step2 = document.getElementById('step2');
+      const node1 = document.getElementById('node1');
+      const node2 = document.getElementById('node2');
+      const trackProgress = document.getElementById('stepTrackProgress');
+
+      document.getElementById('toStep2Btn').addEventListener('click', () => {
+        const comp = document.getElementById('companyName').value.trim();
+        const contact = document.getElementById('contactPerson').value.trim();
+        const desig = document.getElementById('designation').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        const city = document.getElementById('city').value.trim();
+        const state = document.getElementById('state').value;
+
+        if (!comp || !contact || !desig || !phone || !city || !state) {
+          showToast('Please fill in all required fields in Step 1.', 'warning');
+          return;
+        }
+
+        step1.classList.add('d-none');
+        step2.classList.remove('d-none');
+        node1.classList.remove('active');
+        node1.classList.add('completed');
+        node2.classList.add('active');
+        trackProgress.style.width = '100%';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      document.getElementById('backToStep1Btn').addEventListener('click', () => {
+        step2.classList.add('d-none');
+        step1.classList.remove('d-none');
+        node2.classList.remove('active');
+        node1.classList.remove('completed');
+        node1.classList.add('active');
+        trackProgress.style.width = '0%';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      // Submit
+      document.getElementById('companyOnboardingForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const submitBtn = document.getElementById('submitCompanyBtn');
+        const spinner = document.getElementById('submitSpinner');
+        submitBtn.disabled = true;
+        spinner.classList.remove('d-none');
+
+        const profileData = {
+          companyName: document.getElementById('companyName').value.trim(),
+          contactPerson: document.getElementById('contactPerson').value.trim(),
+          designation: document.getElementById('designation').value.trim(),
+          email: document.getElementById('email').value.trim(),
+          phone: document.getElementById('phone').value.trim(),
+          city: document.getElementById('city').value.trim(),
+          state: document.getElementById('state').value,
+          website: document.getElementById('website').value.trim(),
+          companyType: document.getElementById('companyType').value,
+          companySize: document.getElementById('companySize').value,
+          annualTurnover: document.getElementById('annualTurnover').value,
+          gstNumber: document.getElementById('gstNumber').value.trim(),
+          address: document.getElementById('address').value.trim(),
+          aboutCompany: document.getElementById('aboutCompany').value.trim()
+        };
+
+        try {
+          const curUser = getCurrentUser() || {};
+          const uid = curUser.uid || `company-${Date.now().toString(36)}`;
+          await completeUserOnboarding(uid, 'company', profileData);
+
+          showToast('Company profile completed successfully! Welcome to Pragati Connect.', 'success');
+          setTimeout(() => {
+            window.location.href = 'dashboard-company.html';
+          }, 900);
+        } catch (err) {
+          console.error('Error saving company profile:', err);
+          showToast('Failed to save profile: ' + (err.message || 'Please try again'), 'error');
+          submitBtn.disabled = false;
+          spinner.classList.add('d-none');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

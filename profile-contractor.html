@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contractor Profile - Pragati Connect (प्रगति कनेक्ट)</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏗️</text></svg>">
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-light">
+  <div id="navbar-container"></div>
+
+  <main class="py-5">
+    <div class="container">
+      <!-- Breadcrumb -->
+      <nav aria-label="breadcrumb" class="mb-3">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item"><a href="browse-contractors.html">Contractors</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Profile</li>
+        </ol>
+      </nav>
+
+      <!-- Profile Header Card -->
+      <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5 mb-4 bg-white position-relative overflow-hidden">
+        <div class="row align-items-center g-4">
+          <div class="col-md-8">
+            <div class="d-flex align-items-center gap-2 mb-2">
+              <span class="badge badge-verified"><i class="bi bi-patch-check-fill text-success"></i> <span data-i18n="status_audited">GST & PAN Audited</span></span>
+              <span class="badge bg-success-subtle text-success border border-success-subtle" data-i18n="status_available">Available For Mobilization</span>
+            </div>
+            <h2 class="fw-bold text-primary mb-1" id="profileFirmName">Loading Contractor...</h2>
+            <div class="fs-6 text-secondary mb-2" id="profileOwnerName">Proprietor Name</div>
+            <div class="d-flex flex-wrap align-items-center gap-3 text-secondary small">
+              <div><i class="bi bi-geo-alt-fill text-danger me-1"></i> <span id="profileLocation">City, State</span></div>
+              <div class="d-flex align-items-center gap-1">
+                <i class="bi bi-star-fill text-warning"></i>
+                <strong class="text-dark" id="profileRating">4.8</strong>
+                <span class="text-muted" id="profileReviewsCount">(15 reviews)</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 text-md-end">
+            <button class="btn btn-orange btn-lg px-4 shadow-sm w-100 w-md-auto" id="profileSendEnquiryBtn">
+              <i class="bi bi-envelope-fill me-2"></i> <span data-i18n="btn_send_direct_enquiry">Send Direct Enquiry</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="row g-4">
+        <!-- Left Column: Details & Fleet -->
+        <div class="col-lg-8">
+          <!-- About Us -->
+          <div class="card border-0 shadow-sm rounded-4 p-4 mb-4 bg-white">
+            <h5 class="fw-bold text-primary mb-3"><i class="bi bi-info-circle text-primary me-2"></i> About Firm & Capabilities</h5>
+            <p class="text-secondary mb-0" id="profileAboutUs">Detailed company profile...</p>
+          </div>
+
+          <!-- Trades & Skills -->
+          <div class="card border-0 shadow-sm rounded-4 p-4 mb-4 bg-white">
+            <h5 class="fw-bold text-primary mb-3"><i class="bi bi-tools text-warning me-2"></i> Trades & Execution Domains</h5>
+            <div class="d-flex flex-wrap gap-1" id="profileTrades">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+          <!-- Machinery Fleet -->
+          <div class="card border-0 shadow-sm rounded-4 p-4 mb-4 bg-white">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h5 class="fw-bold text-primary mb-0"><i class="bi bi-truck text-warning me-2"></i> Owned Heavy Machinery & Fleet</h5>
+              <span class="badge bg-light text-secondary border">Audited Inventory</span>
+            </div>
+            <ul class="list-group list-group-flush" id="profileMachinery">
+              <!-- Rendered via JS -->
+            </ul>
+          </div>
+
+          <!-- Past Projects Portfolio -->
+          <div class="card border-0 shadow-sm rounded-4 p-4 mb-4 bg-white">
+            <h5 class="fw-bold text-primary mb-3"><i class="bi bi-building-check text-success me-2"></i> Featured Past Projects</h5>
+            <div class="row g-3" id="profilePastProjects">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+          <!-- Ratings & Client Reviews Section (Requirements 5 & 6) -->
+          <div id="contractorReviewsSection">
+            <!-- Rendered via reviews.js -->
+          </div>
+        </div>
+
+        <!-- Right Column: Stats & Contact Info -->
+        <div class="col-lg-4">
+          <!-- Manpower & Experience Card -->
+          <div class="card border-0 shadow-sm rounded-4 p-4 mb-4 bg-white">
+            <h5 class="fw-bold text-primary mb-3"><i class="bi bi-bar-chart-fill text-primary me-2"></i> Capacity Summary</h5>
+            <div class="row g-2 text-center mb-3">
+              <div class="col-4">
+                <div class="p-2 bg-light rounded">
+                  <div class="fs-4 fw-bold text-primary" id="profileWorkers">0</div>
+                  <div class="text-muted" style="font-size: 0.7rem;" data-i18n="label_total_workers">Workers</div>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="p-2 bg-light rounded">
+                  <div class="fs-4 fw-bold text-warning" id="profileSupervisors">0</div>
+                  <div class="text-muted" style="font-size: 0.7rem;" data-i18n="label_supervisors">Supervisors</div>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="p-2 bg-light rounded">
+                  <div class="fs-4 fw-bold text-success" id="profileEngineers">0</div>
+                  <div class="text-muted" style="font-size: 0.7rem;" data-i18n="label_engineers">Engineers</div>
+                </div>
+              </div>
+            </div>
+
+            <ul class="list-group list-group-flush small">
+              <li class="list-group-item d-flex justify-content-between px-0">
+                <span class="text-muted" data-i18n="label_experience">Years of Experience</span>
+                <strong id="profileExperience">0 Years</strong>
+              </li>
+              <li class="list-group-item d-flex justify-content-between px-0">
+                <span class="text-muted">Completed Projects</span>
+                <strong id="profileProjectsCompleted">0 Projects</strong>
+              </li>
+              <li class="list-group-item d-flex justify-content-between px-0">
+                <span class="text-muted">Largest Single Value</span>
+                <strong class="text-success" id="profileLargestProject">₹0 Cr</strong>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Contact Details (Locked / Unlocked) -->
+          <div class="card border-0 shadow-sm rounded-4 p-4 mb-4 bg-white">
+            <h5 class="fw-bold text-primary mb-3"><i class="bi bi-person-lines-fill text-primary me-2"></i> Contact Information</h5>
+            <div id="profileContactInfo">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+
+          <!-- Certifications -->
+          <div class="card border-0 shadow-sm rounded-4 p-4 bg-white">
+            <h5 class="fw-bold text-primary mb-3"><i class="bi bi-award-fill text-warning me-2"></i> Verified Credentials</h5>
+            <div id="profileCertifications">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer-container"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module">
+    import { renderNavbar, renderFooter } from './js/common.js';
+    import { renderContractorProfile } from './js/contractor.js';
+    import { applyTranslations } from './js/i18n.js';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderNavbar('browse-contractors');
+      renderFooter();
+      applyTranslations();
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const contractorId = urlParams.get('id') || 'contractor-101';
+      renderContractorProfile(contractorId);
+
+      window.addEventListener('languageChanged', () => {
+        renderContractorProfile(contractorId);
+        applyTranslations();
+      });
+    });
+  </script>
+</body>
+</html>

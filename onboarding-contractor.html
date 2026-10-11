@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contractor Onboarding - Pragati Connect (प्रगति कनेक्ट)</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏗️</text></svg>">
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-light">
+  <div id="navbar-container"></div>
+
+  <main class="py-5">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-9 col-xl-8">
+          <div class="card border-0 shadow-lg rounded-4 p-4 p-md-5 bg-white">
+            <div class="text-center mb-4">
+              <span class="badge bg-warning text-dark px-3 py-1 rounded-pill fw-semibold">Step 4 of 4 • Profile Setup</span>
+              <h3 class="fw-bold text-primary mt-2">Complete Contractor Profile</h3>
+              <p class="text-secondary small">Set up your business credentials and fleet so EPCs and companies can discover and award work packages to you.</p>
+            </div>
+
+            <!-- Stepper Progress Header -->
+            <div class="stepper-header position-relative mb-4">
+              <div class="stepper-track">
+                <div class="stepper-track-progress" id="stepTrackProgress" style="width: 0%;"></div>
+              </div>
+              <div class="step-node active" id="node1">
+                <div class="step-circle">1</div>
+                <div class="step-label">Basic Info</div>
+              </div>
+              <div class="step-node" id="node2">
+                <div class="step-circle">2</div>
+                <div class="step-label">Capacity & Fleet</div>
+              </div>
+              <div class="step-node" id="node3">
+                <div class="step-circle">3</div>
+                <div class="step-label">Credentials</div>
+              </div>
+            </div>
+
+            <form id="contractorOnboardingForm">
+              <!-- STEP 1: Basic Info -->
+              <div class="onboarding-step" id="step1">
+                <h5 class="fw-bold text-primary border-bottom pb-2 mb-3">
+                  <i class="bi bi-person-badge text-warning me-2"></i> 1. Business & Contact Information
+                </h5>
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold small">Proprietor / Owner Name <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="ownerName" placeholder="e.g. Rajesh Sharma" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold small">Firm / Business Name <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="firmName" placeholder="e.g. Apex Earthmovers & Infra" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold small">Email Address</label>
+                    <input type="email" class="form-control bg-light" id="email" readonly>
+                    <div class="form-text small">Verified via Email OTP</div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold small">Mobile Phone (WhatsApp) <span class="text-danger">*</span></label>
+                    <input type="tel" class="form-control" id="phone" placeholder="+91 98260 12345" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold small">City <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="city" placeholder="e.g. Bhopal" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold small">State <span class="text-danger">*</span></label>
+                    <select class="form-select" id="state" required>
+                      <option value="">Select State</option>
+                      <option value="Madhya Pradesh" selected>Madhya Pradesh</option>
+                      <option value="Maharashtra">Maharashtra</option>
+                      <option value="Gujarat">Gujarat</option>
+                      <option value="Karnataka">Karnataka</option>
+                      <option value="Tamil Nadu">Tamil Nadu</option>
+                      <option value="Telangana">Telangana</option>
+                      <option value="Uttar Pradesh">Uttar Pradesh</option>
+                      <option value="Delhi NCR">Delhi NCR</option>
+                      <option value="Rajasthan">Rajasthan</option>
+                      <option value="West Bengal">West Bengal</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold small">Pincode</label>
+                    <input type="text" class="form-control" id="pincode" placeholder="462001">
+                  </div>
+                </div>
+
+                <div class="d-flex justify-content-end mt-4">
+                  <button type="button" class="btn btn-orange px-4 py-2 fw-semibold" id="toStep2Btn">
+                    Next: Capacity & Fleet <i class="bi bi-arrow-right ms-1"></i>
+                  </button>
+                </div>
+              </div>
+
+              <!-- STEP 2: Capacity & Skills -->
+              <div class="onboarding-step d-none" id="step2">
+                <h5 class="fw-bold text-primary border-bottom pb-2 mb-3">
+                  <i class="bi bi-tools text-warning me-2"></i> 2. Skills, Trades & Machinery Fleet
+                </h5>
+
+                <div class="mb-4">
+                  <label class="form-label fw-semibold small d-block mb-2">
+                    Select Trades / Specializations <span class="text-danger">*</span>
+                    <span class="text-secondary fw-normal">(Select all that apply)</span>
+                  </label>
+                  <div class="row g-2" id="tradesCheckboxContainer"></div>
+                </div>
+
+                <div class="mb-4">
+                  <h6 class="fw-bold text-secondary mb-3"><i class="bi bi-people-fill text-primary me-2"></i> Workforce Strength</h6>
+                  <div class="row g-3">
+                    <div class="col-md-4">
+                      <label class="form-label fw-semibold small">Total Skilled Workers <span class="text-danger">*</span></label>
+                      <input type="number" class="form-control" id="totalWorkers" placeholder="e.g. 45" min="1" value="25" required>
+                    </div>
+                    <div class="col-md-4">
+                      <label class="form-label fw-semibold small">Site Supervisors</label>
+                      <input type="number" class="form-control" id="supervisors" placeholder="e.g. 4" min="0" value="3">
+                    </div>
+                    <div class="col-md-4">
+                      <label class="form-label fw-semibold small">Qualified Engineers</label>
+                      <input type="number" class="form-control" id="engineers" placeholder="e.g. 2" min="0" value="2">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mb-4">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h6 class="fw-bold text-secondary mb-0"><i class="bi bi-truck text-warning me-2"></i> Owned Heavy Machinery & Fleet</h6>
+                    <button type="button" class="btn btn-sm btn-outline-primary" id="addMachineryRowBtn">
+                      <i class="bi bi-plus-lg me-1"></i> Add Machine
+                    </button>
+                  </div>
+                  <div id="machineryList" class="bg-light p-3 rounded-3 border">
+                    <div class="row g-2 align-items-center machinery-item mb-2">
+                      <div class="col-8">
+                        <input type="text" class="form-control form-control-sm machine-name" placeholder="Machine (e.g. JCB 3DX Backhoe Loader)" value="JCB 3DX Backhoe Loader">
+                      </div>
+                      <div class="col-3">
+                        <input type="number" class="form-control form-control-sm machine-qty" placeholder="Qty" value="2" min="1">
+                      </div>
+                      <div class="col-1 text-center">
+                        <button type="button" class="btn btn-sm text-danger remove-machine-btn"><i class="bi bi-trash"></i></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="d-flex justify-content-between mt-4">
+                  <button type="button" class="btn btn-outline-secondary px-4 py-2" id="backToStep1Btn">
+                    <i class="bi bi-arrow-left me-1"></i> Back
+                  </button>
+                  <button type="button" class="btn btn-orange px-4 py-2 fw-semibold" id="toStep3Btn">
+                    Next: Credentials <i class="bi bi-arrow-right ms-1"></i>
+                  </button>
+                </div>
+              </div>
+
+              <!-- STEP 3: Credentials & Scope -->
+              <div class="onboarding-step d-none" id="step3">
+                <h5 class="fw-bold text-primary border-bottom pb-2 mb-3">
+                  <i class="bi bi-shield-check text-success me-2"></i> 3. Experience, Compliance & Bio
+                </h5>
+                <div class="row g-3">
+                  <div class="col-md-4">
+                    <label class="form-label fw-semibold small">Years in Business <span class="text-danger">*</span></label>
+                    <input type="number" class="form-control" id="yearsOfExperience" placeholder="e.g. 12" min="0" value="8" required>
+                  </div>
+                  <div class="col-md-4">
+                    <label class="form-label fw-semibold small">Projects Completed</label>
+                    <input type="number" class="form-control" id="projectsCompleted" placeholder="e.g. 35" min="0" value="22">
+                  </div>
+                  <div class="col-md-4">
+                    <label class="form-label fw-semibold small">Largest Project Value</label>
+                    <input type="text" class="form-control" id="largestProjectValue" placeholder="e.g. ₹4.2 Crore" value="₹3.5 Crore">
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold small">GSTIN (Optional)</label>
+                    <input type="text" class="form-control text-uppercase" id="gstNumber" placeholder="23AAAAA0000A1Z5">
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold small">PAN Card (Optional)</label>
+                    <input type="text" class="form-control text-uppercase" id="panNumber" placeholder="ABCDE1234F">
+                  </div>
+
+                  <div class="col-12">
+                    <label class="form-label fw-semibold small">About Firm & Fleet Highlights</label>
+                    <textarea class="form-control" id="aboutUs" rows="3" placeholder="Describe your specialization, prominent clients (L&T, Tata, Afcons), safety track record and site capabilities...">Specialized in heavy earth excavation, site leveling, and embankment filling with dedicated fleet of hydraulic excavators, tippers, and compactors.</textarea>
+                  </div>
+
+                  <div class="col-12">
+                    <div class="p-3 bg-light rounded-3 border">
+                      <div class="form-check form-switch mb-2">
+                        <input class="form-check-input" type="checkbox" id="willingToTravel" checked>
+                        <label class="form-check-label fw-semibold small" for="willingToTravel">Willing to mobilize workforce & fleet outside home district</label>
+                      </div>
+                      <div class="row g-2 align-items-center">
+                        <div class="col-auto">
+                          <label class="form-label small mb-0 text-secondary">Travel Radius:</label>
+                        </div>
+                        <div class="col-auto">
+                          <select class="form-select form-select-sm" id="travelRadius">
+                            <option value="Within State" selected>Within State (up to 300 km)</option>
+                            <option value="Pan-India">Pan-India (Nationwide mobilization)</option>
+                            <option value="District only">Home District only</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="d-flex justify-content-between mt-4">
+                  <button type="button" class="btn btn-outline-secondary px-4 py-2" id="backToStep2Btn">
+                    <i class="bi bi-arrow-left me-1"></i> Back
+                  </button>
+                  <button type="submit" class="btn btn-orange px-5 py-2 fw-bold" id="submitContractorBtn">
+                    <span class="spinner-border spinner-border-sm d-none me-2" id="submitSpinner"></span>
+                    Complete Setup & Go to Dashboard <i class="bi bi-check2-circle ms-1"></i>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer-container"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module">
+    import { renderNavbar, renderFooter, getCurrentUser, showToast } from './js/common.js';
+    import { completeUserOnboarding } from './js/auth.js';
+    import { applyTranslations, translateTrade } from './js/i18n.js';
+
+    const ALL_TRADES = [
+      "Civil", "MEP", "Waterproofing", "Structural Steel", "Concrete", 
+      "Road/Highway", "Interior", "Facade", "Demolition", "Plumbing", 
+      "Electrical", "Painting", "Flooring", "Roofing", "Landscaping"
+    ];
+
+    function renderTradeCheckboxes() {
+      const container = document.getElementById('tradesCheckboxContainer');
+      if (!container) return;
+      container.innerHTML = ALL_TRADES.map((trade, idx) => `
+        <div class="col-6 col-md-4">
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="trade" value="${trade}" id="trade_${idx}" ${idx < 3 ? 'checked' : ''}>
+            <label class="form-check-label small" for="trade_${idx}">${translateTrade ? translateTrade(trade) : trade}</label>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderNavbar('register');
+      renderFooter();
+      applyTranslations();
+      renderTradeCheckboxes();
+
+      // Check current user session
+      const user = getCurrentUser();
+      const emailField = document.getElementById('email');
+      if (user && user.email) {
+        emailField.value = user.email;
+      } else {
+        // Fallback email from URL or default
+        const urlParams = new URLSearchParams(window.location.search);
+        emailField.value = urlParams.get('email') || 'contractor@example.com';
+      }
+
+      // Stepper Elements
+      const step1 = document.getElementById('step1');
+      const step2 = document.getElementById('step2');
+      const step3 = document.getElementById('step3');
+      const node1 = document.getElementById('node1');
+      const node2 = document.getElementById('node2');
+      const node3 = document.getElementById('node3');
+      const trackProgress = document.getElementById('stepTrackProgress');
+
+      document.getElementById('toStep2Btn').addEventListener('click', () => {
+        const owner = document.getElementById('ownerName').value.trim();
+        const firm = document.getElementById('firmName').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        const city = document.getElementById('city').value.trim();
+        const state = document.getElementById('state').value;
+
+        if (!owner || !firm || !phone || !city || !state) {
+          showToast('Please fill in all required fields in Step 1.', 'warning');
+          return;
+        }
+
+        step1.classList.add('d-none');
+        step2.classList.remove('d-none');
+        node1.classList.remove('active');
+        node1.classList.add('completed');
+        node2.classList.add('active');
+        trackProgress.style.width = '50%';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      document.getElementById('backToStep1Btn').addEventListener('click', () => {
+        step2.classList.add('d-none');
+        step1.classList.remove('d-none');
+        node2.classList.remove('active');
+        node1.classList.remove('completed');
+        node1.classList.add('active');
+        trackProgress.style.width = '0%';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      document.getElementById('toStep3Btn').addEventListener('click', () => {
+        const checkedTrades = document.querySelectorAll('input[name="trade"]:checked');
+        if (checkedTrades.length === 0) {
+          showToast('Please select at least one trade specialization.', 'warning');
+          return;
+        }
+
+        step2.classList.add('d-none');
+        step3.classList.remove('d-none');
+        node2.classList.remove('active');
+        node2.classList.add('completed');
+        node3.classList.add('active');
+        trackProgress.style.width = '100%';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      document.getElementById('backToStep2Btn').addEventListener('click', () => {
+        step3.classList.add('d-none');
+        step2.classList.remove('d-none');
+        node3.classList.remove('active');
+        node2.classList.remove('completed');
+        node2.classList.add('active');
+        trackProgress.style.width = '50%';
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      // Machinery list dynamic add
+      const machList = document.getElementById('machineryList');
+      document.getElementById('addMachineryRowBtn').addEventListener('click', () => {
+        const row = document.createElement('div');
+        row.className = 'row g-2 align-items-center machinery-item mb-2';
+        row.innerHTML = `
+          <div class="col-8">
+            <input type="text" class="form-control form-control-sm machine-name" placeholder="Machine (e.g. Transit Mixer 6 cu.m)">
+          </div>
+          <div class="col-3">
+            <input type="number" class="form-control form-control-sm machine-qty" placeholder="Qty" value="1" min="1">
+          </div>
+          <div class="col-1 text-center">
+            <button type="button" class="btn btn-sm text-danger remove-machine-btn"><i class="bi bi-trash"></i></button>
+          </div>
+        `;
+        machList.appendChild(row);
+        row.querySelector('.remove-machine-btn').addEventListener('click', () => row.remove());
+      });
+
+      machList.querySelectorAll('.remove-machine-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => e.currentTarget.closest('.machinery-item').remove());
+      });
+
+      // Submit
+      document.getElementById('contractorOnboardingForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const submitBtn = document.getElementById('submitContractorBtn');
+        const spinner = document.getElementById('submitSpinner');
+        submitBtn.disabled = true;
+        spinner.classList.remove('d-none');
+
+        const trades = Array.from(document.querySelectorAll('input[name="trade"]:checked')).map(cb => cb.value);
+        const machinery = Array.from(document.querySelectorAll('.machinery-item')).map(row => ({
+          name: row.querySelector('.machine-name')?.value?.trim() || '',
+          quantity: Number(row.querySelector('.machine-qty')?.value) || 1
+        })).filter(m => m.name.length > 0);
+
+        const profileData = {
+          ownerName: document.getElementById('ownerName').value.trim(),
+          firmName: document.getElementById('firmName').value.trim(),
+          email: document.getElementById('email').value.trim(),
+          phone: document.getElementById('phone').value.trim(),
+          city: document.getElementById('city').value.trim(),
+          state: document.getElementById('state').value,
+          pincode: document.getElementById('pincode').value.trim(),
+          trades,
+          machinery,
+          totalWorkers: Number(document.getElementById('totalWorkers').value) || 15,
+          supervisors: Number(document.getElementById('supervisors').value) || 2,
+          engineers: Number(document.getElementById('engineers').value) || 1,
+          yearsOfExperience: Number(document.getElementById('yearsOfExperience').value) || 5,
+          largestProjectValue: document.getElementById('largestProjectValue').value.trim(),
+          projectsCompleted: Number(document.getElementById('projectsCompleted').value) || 10,
+          gstNumber: document.getElementById('gstNumber').value.trim(),
+          panNumber: document.getElementById('panNumber').value.trim(),
+          aboutUs: document.getElementById('aboutUs').value.trim(),
+          willingToTravel: document.getElementById('willingToTravel').checked,
+          travelRadius: document.getElementById('travelRadius').value
+        };
+
+        try {
+          const curUser = getCurrentUser() || {};
+          const uid = curUser.uid || `contractor-${Date.now().toString(36)}`;
+          await completeUserOnboarding(uid, 'contractor', profileData);
+
+          showToast('Profile completed successfully! Welcome to Pragati Connect.', 'success');
+          setTimeout(() => {
+            window.location.href = 'dashboard-contractor.html';
+          }, 900);
+        } catch (err) {
+          console.error('Error saving profile:', err);
+          showToast('Failed to save profile: ' + (err.message || 'Please try again'), 'error');
+          submitBtn.disabled = false;
+          spinner.classList.add('d-none');
+        }
+      });
+    });
+  </script>
+</body>
+</html>

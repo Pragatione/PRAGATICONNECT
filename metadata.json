@@ -1,0 +1,6 @@
+{
+  "name": "Pragati Connect (प्रगति कनेक्ट)",
+  "description": "India's construction contractor B2B marketplace connecting contractors with major EPC companies and infrastructure projects.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

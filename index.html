@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pragati Connect (प्रगति कनेक्ट) - India's Construction Contractor Marketplace</title>
+  <meta name="description" content="Connecting skilled construction contractors with tier-1 EPC companies. Post work requirements, discover verified trade contractors across India.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏗️</text></svg>">
+  
+  <!-- Bootstrap 5 CSS & Bootstrap Icons CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Top Demo / Quick Role Access Banner -->
+  <div class="demo-banner text-center d-flex justify-content-center align-items-center flex-wrap gap-2 py-1">
+    <span><i class="bi bi-lightning-charge-fill text-warning me-1"></i> <span data-i18n="preview_banner">Quick Preview: Explore as</span></span>
+    <button class="btn btn-xs btn-sm btn-outline-dark py-0 px-2 fw-semibold" id="quickContractorBtn" data-i18n="demo_contractor">Demo Contractor</button>
+    <button class="btn btn-xs btn-sm btn-outline-dark py-0 px-2 fw-semibold" id="quickCompanyBtn" data-i18n="demo_company">Demo Company</button>
+  </div>
+
+  <!-- Navbar -->
+  <div id="navbar-container"></div>
+
+  <main>
+    <!-- Hero Section -->
+    <section class="hero-section text-center text-lg-start">
+      <div class="container position-relative" style="z-index: 2;">
+        <div class="row align-items-center g-5">
+          <div class="col-lg-7">
+            <div class="hero-stats-badge">
+              <i class="bi bi-patch-check-fill text-warning"></i>
+              <span data-i18n="hero_badge">India's Dedicated B2B Construction Marketplace</span>
+            </div>
+            <h1 class="hero-title" data-i18n="hero_title">
+              Pragati Connect <br>
+              <span style="color: #f39c12; font-size: 2.2rem; font-weight: 700;">(प्रगति कनेक्ट)</span>
+            </h1>
+            <p class="hero-subtitle" data-i18n="hero_desc">
+              "Pragati ka raasta, kaam se shuru" — Connecting skilled subcontractors with major EPC companies. Find high-value work and verified trade contractors across India.
+            </p>
+            <div class="d-flex flex-wrap gap-3 justify-content-center justify-content-lg-start mb-4">
+              <a href="register-contractor.html" class="btn btn-orange btn-lg px-4" data-i18n="btn_iam_contractor">
+                <i class="bi bi-hammer me-2"></i> I'm a Contractor
+              </a>
+              <a href="register-company.html" class="btn btn-outline-custom btn-lg px-4" data-i18n="btn_iam_company">
+                <i class="bi bi-building me-2"></i> I'm a Company
+              </a>
+            </div>
+            <div class="d-flex flex-wrap gap-4 text-light small justify-content-center justify-content-lg-start">
+              <div><i class="bi bi-shield-check text-success me-1"></i> <span data-i18n="feat3_title">Verified Profiles</span></div>
+              <div><i class="bi bi-truck text-warning me-1"></i> <span data-i18n="fleet_audited">Fleet Audited</span></div>
+              <div><i class="bi bi-geo-alt-fill text-danger me-1"></i> <span data-i18n="feat5_title">Pan India Reach</span></div>
+            </div>
+          </div>
+          <div class="col-lg-5">
+            <div class="card shadow-lg border-0 rounded-4 overflow-hidden text-dark bg-white">
+              <div class="bg-primary text-white p-3 px-4 d-flex justify-content-between align-items-center">
+                <span class="fw-bold"><i class="bi bi-fire text-warning me-1"></i> <span data-i18n="live_opportunities">Live High-Value Opportunities</span></span>
+                <span class="badge bg-warning text-dark" data-i18n="updated_daily">Updated Daily</span>
+              </div>
+              <div class="p-3">
+                <div class="p-3 mb-2 rounded bg-light border-start border-4 border-warning">
+                  <div class="d-flex justify-content-between">
+                    <span class="badge bg-primary-subtle text-primary mb-1">Civil / Metro</span>
+                    <strong class="text-success">₹10-50 Cr</strong>
+                  </div>
+                  <h6 class="mb-0 fw-bold text-dark">Mumbai Metro Viaduct Substructure</h6>
+                  <small class="text-muted"><i class="bi bi-building"></i> L&T Heavy Civil • Mumbai</small>
+                </div>
+                <div class="p-3 mb-2 rounded bg-light border-start border-4 border-success">
+                  <div class="d-flex justify-content-between">
+                    <span class="badge bg-success-subtle text-success mb-1">MEP & HVAC</span>
+                    <strong class="text-success">₹1-5 Cr</strong>
+                  </div>
+                  <h6 class="mb-0 fw-bold text-dark">Bengaluru Tech Park Turnkey Package</h6>
+                  <small class="text-muted"><i class="bi bi-building"></i> Tata Projects • Bengaluru</small>
+                </div>
+                <div class="p-3 rounded bg-light border-start border-4 border-primary">
+                  <div class="d-flex justify-content-between">
+                    <span class="badge bg-info-subtle text-dark mb-1">PEB Structural Steel</span>
+                    <strong class="text-success">₹5-10 Cr</strong>
+                  </div>
+                  <h6 class="mb-0 fw-bold text-dark">Automated Logistics Hub Framing</h6>
+                  <small class="text-muted"><i class="bi bi-building"></i> Shapoorji EPC • Chennai</small>
+                </div>
+                <div class="mt-3 text-center">
+                  <a href="browse-work.html" class="btn btn-outline-primary btn-sm w-100" data-i18n="btn_explore_requirements">
+                    Explore Live Requirements <i class="bi bi-arrow-right"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats Counter Section -->
+    <section class="py-5 bg-white border-bottom">
+      <div class="container">
+        <div class="row g-4 text-center">
+          <div class="col-md-4">
+            <div class="p-3">
+              <i class="bi bi-people-fill fs-1 text-primary mb-2 d-block"></i>
+              <h2 class="display-5 fw-bold text-primary counter-value" data-target="10000">10,000+</h2>
+              <p class="text-secondary fw-semibold mb-0" data-i18n="stats_contractors">Verified Contractors</p>
+              <small class="text-muted" data-i18n="stats_contractors_sub">Civil, MEP, Structural Steel & Earthwork</small>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="p-3 border-start border-end">
+              <i class="bi bi-buildings-fill fs-1 text-warning mb-2 d-block"></i>
+              <h2 class="display-5 fw-bold text-primary counter-value" data-target="500">500+</h2>
+              <p class="text-secondary fw-semibold mb-0" data-i18n="stats_companies">EPC & Infra Companies</p>
+              <small class="text-muted" data-i18n="stats_companies_sub">L&T, Tata Projects, Afcons, Shapoorji & more</small>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="p-3">
+              <i class="bi bi-award-fill fs-1 text-success mb-2 d-block"></i>
+              <h2 class="display-5 fw-bold text-primary counter-value" data-target="1000">1,000+</h2>
+              <p class="text-secondary fw-semibold mb-0" data-i18n="stats_projects">Projects Connected</p>
+              <small class="text-muted" data-i18n="stats_projects_sub">Over ₹4,500 Cr subcontract value facilitated</small>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="py-5 bg-light">
+      <div class="container py-4">
+        <div class="text-center mb-5">
+          <span class="badge bg-warning text-dark px-3 py-2 rounded-pill fw-semibold" data-i18n="how_it_works_badge">Simple & Transparent</span>
+          <h2 class="mt-2 fw-bold text-primary" data-i18n="how_it_works_title">How Pragati Connect Works</h2>
+          <p class="text-secondary max-w-600 mx-auto" data-i18n="how_it_works_desc">Connecting demand with specialized execution capacity in three seamless steps.</p>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="custom-card custom-card-hover h-100 text-center p-4">
+              <div class="stat-icon orange mx-auto mb-3">
+                <i class="bi bi-person-plus-fill"></i>
+              </div>
+              <h5 class="fw-bold text-primary mb-2" data-i18n="step1_title">Step 1: Register Your Profile</h5>
+              <p class="text-secondary small" data-i18n="step1_desc">
+                Contractors showcase machinery, manpower, past projects, and CPWD/ISO credentials. Companies configure procurement needs.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="custom-card custom-card-hover h-100 text-center p-4">
+              <div class="stat-icon blue mx-auto mb-3">
+                <i class="bi bi-search"></i>
+              </div>
+              <h5 class="fw-bold text-primary mb-2" data-i18n="step2_title">Step 2: Discover Opportunities</h5>
+              <p class="text-secondary small" data-i18n="step2_desc">
+                Contractors filter tenders by trade, budget, and location. EPC companies search equipment availability and verified contractor profiles.
+              </p>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="custom-card custom-card-hover h-100 text-center p-4">
+              <div class="stat-icon green mx-auto mb-3">
+                <i class="bi bi-handshake-fill"></i>
+              </div>
+              <h5 class="fw-bold text-primary mb-2" data-i18n="step3_title">Step 3: Connect & Grow</h5>
+              <p class="text-secondary small" data-i18n="step3_desc">
+                Send direct enquiries, negotiate timelines and rates, submit formal bids, and award subcontract packages with zero middlemen friction.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section (Grid of 6 Cards) -->
+    <section class="py-5 bg-white">
+      <div class="container py-4">
+        <div class="text-center mb-5">
+          <span class="badge bg-primary text-white px-3 py-2 rounded-pill fw-semibold" data-i18n="features_badge">B2B Advantages</span>
+          <h2 class="mt-2 fw-bold text-primary" data-i18n="features_title">Built Specifically for Construction</h2>
+          <p class="text-secondary" data-i18n="features_desc">Every feature tailored to tackle real subcontracting challenges on site.</p>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-md-6 col-lg-4">
+            <div class="custom-card custom-card-hover h-100 p-4">
+              <div class="stat-icon orange mb-3"><i class="bi bi-briefcase-fill"></i></div>
+              <h5 class="fw-bold mb-2" data-i18n="feat1_title">Find High-Value Work</h5>
+              <p class="text-secondary small mb-0" data-i18n="feat1_desc">Discover verified commercial, industrial, highway, and metro packages matching your exact trade and machinery fleet.</p>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <div class="custom-card custom-card-hover h-100 p-4">
+              <div class="stat-icon blue mb-3"><i class="bi bi-person-check-fill"></i></div>
+              <h5 class="fw-bold mb-2" data-i18n="feat2_title">Find Verified Contractors</h5>
+              <p class="text-secondary small mb-0" data-i18n="feat2_desc">Filter contractors with verified excavator fleets, mobile cranes, ISO/safety certifications, and proven track records.</p>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <div class="custom-card custom-card-hover h-100 p-4">
+              <div class="stat-icon green mb-3"><i class="bi bi-shield-fill-check"></i></div>
+              <h5 class="fw-bold mb-2" data-i18n="feat3_title">Verified Profiles</h5>
+              <p class="text-secondary small mb-0" data-i18n="feat3_desc">Trust verified GSTIN, PAN, and PWD registrations. No fly-by-night operators or non-serious inquiries.</p>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <div class="custom-card custom-card-hover h-100 p-4">
+              <div class="stat-icon purple mb-3"><i class="bi bi-tools"></i></div>
+              <h5 class="fw-bold mb-2" data-i18n="feat4_title">All Trades Covered</h5>
+              <p class="text-secondary small mb-0" data-i18n="feat4_desc">From bulk earthwork, precast concrete, and PEB structural steel to MEP, waterproofing, and interior fitouts.</p>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <div class="custom-card custom-card-hover h-100 p-4">
+              <div class="stat-icon orange mb-3"><i class="bi bi-globe-americas"></i></div>
+              <h5 class="fw-bold mb-2" data-i18n="feat5_title">Pan India Reach</h5>
+              <p class="text-secondary small mb-0" data-i18n="feat5_desc">Mobilize contractors ready to travel across states or find hyperlocal specialists for rapid site mobilization.</p>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-4">
+            <div class="custom-card custom-card-hover h-100 p-4">
+              <div class="stat-icon blue mb-3"><i class="bi bi-ticket-perforated-fill"></i></div>
+              <h5 class="fw-bold mb-2" data-i18n="feat6_title">Free to Register</h5>
+              <p class="text-secondary small mb-0" data-i18n="feat6_desc">Zero signup fee. Create your contractor portfolio or publish company project requirements immediately.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-5 bg-light">
+      <div class="container py-4">
+        <div class="text-center mb-5">
+          <span class="badge bg-success text-white px-3 py-2 rounded-pill fw-semibold">Industry Trust</span>
+          <h2 class="mt-2 fw-bold text-primary">Voices from the Construction Field</h2>
+          <p class="text-secondary">What project heads and subcontractors say about Pragati Connect.</p>
+        </div>
+
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="custom-card h-100 p-4">
+              <div class="rating-stars mb-3">
+                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+              </div>
+              <p class="small text-secondary mb-3">
+                "We had 4 excavators sitting idle after finishing our bypass project. Within 10 days on Pragati Connect, we were mobilized by an EPC firm for a ₹6 Cr industrial earthwork package in Chakan."
+              </p>
+              <div class="d-flex align-items-center gap-2 border-top pt-3">
+                <div class="bg-primary text-white rounded-circle p-2 fw-bold" style="width: 40px; height: 40px; text-align: center;">RS</div>
+                <div>
+                  <h6 class="mb-0 fw-bold">Rajesh Sharma</h6>
+                  <small class="text-muted">Proprietor, Apex Earthmovers, Bhopal</small>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="custom-card h-100 p-4">
+              <div class="rating-stars mb-3">
+                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+              </div>
+              <p class="small text-secondary mb-3">
+                "Finding pre-qualified structural steel fabricators with Hydra cranes in Western India used to take weeks of vendor calls. Pragati Connect simplified our vendor evaluation down to 48 hours."
+              </p>
+              <div class="d-flex align-items-center gap-2 border-top pt-3">
+                <div class="bg-warning text-dark rounded-circle p-2 fw-bold" style="width: 40px; height: 40px; text-align: center;">AN</div>
+                <div>
+                  <h6 class="mb-0 fw-bold">Arvind Narayan</h6>
+                  <small class="text-muted">Head of Subcontracts, L&T Heavy Civil IC</small>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="custom-card h-100 p-4">
+              <div class="rating-stars mb-3">
+                <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+              </div>
+              <p class="small text-secondary mb-3">
+                "As an MEP turnkey firm, showcasing our UL/FM fire protection licenses and 90-technician manpower directly helped us win commercial IT park subcontracts in Hyderabad and Bengaluru."
+              </p>
+              <div class="d-flex align-items-center gap-2 border-top pt-3">
+                <div class="bg-success text-white rounded-circle p-2 fw-bold" style="width: 40px; height: 40px; text-align: center;">MR</div>
+                <div>
+                  <h6 class="mb-0 fw-bold">Manoj Reddy</h6>
+                  <small class="text-muted">Director, VK MEP Solutions, Hyderabad</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Footer Banner -->
+    <section class="py-5" style="background: linear-gradient(135deg, #1a365d, #e67e22);">
+      <div class="container text-center text-white py-3">
+        <h2 class="text-white fw-bold mb-3" data-i18n="ready_to_accelerate">Ready to Accelerate Your Construction Projects?</h2>
+        <p class="lead mb-4 text-light max-w-600 mx-auto" data-i18n="join_thousands">Join thousands of Indian contractors and builders scaling their operations today.</p>
+        <div class="d-flex justify-content-center gap-3">
+          <a href="register.html" class="btn btn-light text-primary fw-bold btn-lg px-4" data-i18n="btn_register_free">Register For Free</a>
+          <a href="browse-contractors.html" class="btn btn-outline-light btn-lg px-4" data-i18n="nav_find_contractors">Find Contractors</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <div id="footer-container"></div>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module">
+    import { renderNavbar, renderFooter, showToast } from './js/common.js';
+    import { loginAsPersona } from './js/auth.js';
+    import { applyTranslations } from './js/i18n.js';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderNavbar('home');
+      renderFooter();
+      applyTranslations();
+
+      // Quick Demo Persona logins
+      document.getElementById('quickContractorBtn')?.addEventListener('click', () => {
+        loginAsPersona('contractor');
+      });
+      document.getElementById('quickCompanyBtn')?.addEventListener('click', () => {
+        loginAsPersona('company');
+      });
+    });
+  </script>
+</body>
+</html>

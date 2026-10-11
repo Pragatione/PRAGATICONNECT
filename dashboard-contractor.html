@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contractor Dashboard - Pragati Connect (प्रगति कनेक्ट)</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏗️</text></svg>">
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <div id="navbar-container"></div>
+
+  <div class="dashboard-layout">
+    <!-- Sidebar -->
+    <aside class="dashboard-sidebar">
+      <div class="d-flex align-items-center gap-2 p-2 mb-3 bg-light rounded">
+        <div class="bg-primary text-white rounded-circle p-2 fw-bold" id="sidebarAvatar" style="width: 40px; height: 40px; text-align: center;">C</div>
+        <div class="overflow-hidden">
+          <div class="fw-bold text-truncate small" id="sidebarUserName">Contractor User</div>
+          <span class="badge bg-warning text-dark" style="font-size: 0.65rem;">Contractor</span>
+        </div>
+      </div>
+
+      <div class="sidebar-heading">Navigation</div>
+      <a href="dashboard-contractor.html" class="sidebar-nav-item active">
+        <i class="bi bi-speedometer2"></i> <span data-i18n="nav_dashboard">Dashboard</span>
+      </a>
+      <a href="browse-work.html" class="sidebar-nav-item">
+        <i class="bi bi-briefcase"></i> <span data-i18n="nav_browse_work">Browse Work</span>
+      </a>
+      <a href="#myApplicationsSection" class="sidebar-nav-item">
+        <i class="bi bi-send-check"></i> <span data-i18n="dash_my_applications">My Applications</span>
+      </a>
+      <a href="#myEnquiriesSection" class="sidebar-nav-item">
+        <i class="bi bi-envelope"></i> <span data-i18n="dash_client_enquiries">My Enquiries</span>
+      </a>
+      <a href="my-profile.html" class="sidebar-nav-item">
+        <i class="bi bi-person-gear"></i> <span data-i18n="nav_my_profile">Edit Profile</span>
+      </a>
+      <a href="#" id="viewPublicProfileLink" class="sidebar-nav-item">
+        <i class="bi bi-eye"></i> <span data-i18n="nav_public_profile">Public Profile</span>
+      </a>
+
+      <div class="mt-auto pt-4 border-top">
+        <button class="sidebar-nav-item text-danger border-0 bg-transparent w-100 text-start" id="sidebarLogoutBtn">
+          <i class="bi bi-box-arrow-right"></i> <span data-i18n="nav_logout">Logout</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="dashboard-main">
+      <div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+        <div>
+          <h3 class="fw-bold text-primary mb-1" data-i18n="nav_dashboard">Contractor Dashboard</h3>
+          <p class="text-secondary small mb-0" data-i18n="dash_contractor_overview">Overview of your bids, client inquiries, and live subcontract opportunities.</p>
+        </div>
+        <div class="d-flex gap-2">
+          <a href="browse-work.html" class="btn btn-orange btn-sm">
+            <i class="bi bi-search me-1"></i> <span data-i18n="btn_find_projects">Find Projects</span>
+          </a>
+          <a href="my-profile.html" class="btn btn-outline-secondary btn-sm">
+            <i class="bi bi-pencil me-1"></i> <span data-i18n="btn_update_machinery">Update Machinery</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Top Row Overview Cards -->
+      <div class="row g-3 mb-4">
+        <div class="col-sm-6 col-xl-3">
+          <div class="stat-card">
+            <div class="stat-icon blue">
+              <i class="bi bi-eye"></i>
+            </div>
+            <div>
+              <div class="stat-value" id="statProfileViews">142</div>
+              <div class="stat-label" data-i18n="dash_profile_views">Profile Views</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-xl-3">
+          <div class="stat-card">
+            <div class="stat-icon orange">
+              <i class="bi bi-envelope"></i>
+            </div>
+            <div>
+              <div class="stat-value" id="statEnquiries">18</div>
+              <div class="stat-label" data-i18n="dash_enquiries_received">Enquiries Received</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-xl-3">
+          <div class="stat-card">
+            <div class="stat-icon green">
+              <i class="bi bi-send"></i>
+            </div>
+            <div>
+              <div class="stat-value" id="statApplications">2</div>
+              <div class="stat-label" data-i18n="dash_applications_sent">Applications Sent</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-6 col-xl-3">
+          <div class="stat-card">
+            <div class="stat-icon purple">
+              <i class="bi bi-shield-check"></i>
+            </div>
+            <div>
+              <div class="stat-value" style="font-size: 1.1rem;" id="statProfileStatus">
+                <span class="badge bg-success-subtle text-success">Verified</span>
+              </div>
+              <div class="stat-label" data-i18n="dash_profile_status">Profile Status</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Activity Analytics Chart -->
+      <div class="card border-0 shadow-sm rounded-4 p-4 mb-4 bg-white">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h5 class="fw-bold text-primary mb-0">Contractor Activity & Inquiries Trend</h5>
+          <span class="badge bg-light text-secondary border">Last 6 Months</span>
+        </div>
+        <div style="height: 250px;">
+          <canvas id="contractorActivityChart"></canvas>
+        </div>
+      </div>
+
+      <!-- Matching Work Postings -->
+      <div class="mb-5">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <div>
+            <h5 class="fw-bold text-primary mb-0" data-i18n="dash_matching_projects">Recommended Projects Matching Your Trades</h5>
+            <small class="text-secondary">High-priority tenders tailored to your skills & machinery</small>
+          </div>
+          <a href="browse-work.html" class="btn btn-sm btn-outline-primary" data-i18n="nav_browse_work">View All Work <i class="bi bi-arrow-right"></i></a>
+        </div>
+        <div class="row g-3" id="matchingWorkContainer">
+          <!-- Populated by contractor.js -->
+        </div>
+      </div>
+
+      <!-- My Applications Table -->
+      <div class="card border-0 shadow-sm rounded-4 p-4 mb-4 bg-white" id="myApplicationsSection">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h5 class="fw-bold text-primary mb-0"><i class="bi bi-send-check text-success me-2"></i> <span data-i18n="dash_my_applications">My Project Applications</span></h5>
+          <span class="badge bg-light text-muted border">Live Status</span>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-hover align-middle mb-0">
+            <thead class="table-light small">
+              <tr>
+                <th>Project Ref</th>
+                <th>Proposed Rate</th>
+                <th>Proposed Duration</th>
+                <th>Status</th>
+                <th>Applied On</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="myApplicationsTableBody">
+              <!-- Rendered via contractor.js -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- My Enquiries Table -->
+      <div class="card border-0 shadow-sm rounded-4 p-4 bg-white" id="myEnquiriesSection">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h5 class="fw-bold text-primary mb-0"><i class="bi bi-envelope text-warning me-2"></i> <span data-i18n="dash_client_enquiries">Client Enquiries Received</span></h5>
+          <span class="badge bg-light text-muted border">Direct Messages</span>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-hover align-middle mb-0">
+            <thead class="table-light small">
+              <tr>
+                <th>Company</th>
+                <th>Subject</th>
+                <th>Message Snippet</th>
+                <th>Status</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="myEnquiriesTableBody">
+              <!-- Rendered via contractor.js -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div id="footer-container"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module">
+    import { renderNavbar, renderFooter, getCurrentUser, requireAuth, logoutUser } from './js/common.js';
+    import { initContractorDashboard } from './js/contractor.js';
+    import { applyTranslations } from './js/i18n.js';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      if (!requireAuth('contractor')) return;
+
+      renderNavbar('dashboard');
+      renderFooter();
+      applyTranslations();
+
+      const user = getCurrentUser();
+      if (user) {
+        document.getElementById('sidebarUserName').textContent = user.displayName || user.firmName || 'Contractor';
+        document.getElementById('sidebarAvatar').textContent = (user.displayName || user.firmName || 'C').charAt(0).toUpperCase();
+        document.getElementById('viewPublicProfileLink').href = `profile-contractor.html?id=${user.uid}`;
+      }
+
+      document.getElementById('sidebarLogoutBtn')?.addEventListener('click', logoutUser);
+
+      initContractorDashboard();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Company Registration - Pragati Connect (प्रगति कनेक्ट)</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏗️</text></svg>">
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-light">
+  <div id="navbar-container"></div>
+
+  <main class="py-5">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="card border-0 shadow-lg rounded-4 p-4 p-md-5 bg-white">
+            <div class="text-center mb-4">
+              <span class="badge bg-primary text-white px-3 py-1 rounded-pill fw-semibold" data-i18n="company_onboarding">Company / EPC Onboarding</span>
+              <h3 class="fw-bold text-primary mt-2" data-i18n="reg_company_title">Register Company Profile</h3>
+              <p class="text-secondary small" data-i18n="reg_company_subtitle">Find verified contractors and publish site requirements across India</p>
+            </div>
+
+            <!-- Wizard Step Indicators (2 steps) -->
+            <div class="wizard-steps">
+              <div class="wizard-step active" id="stepIndicator1">
+                <div class="wizard-circle">1</div>
+                <div class="wizard-label" data-i18n="step_basic_info">Primary Contact</div>
+              </div>
+              <div class="wizard-step" id="stepIndicator2">
+                <div class="wizard-circle">2</div>
+                <div class="wizard-label" data-i18n="step_company_details">Company Details</div>
+              </div>
+            </div>
+
+            <form id="companyRegForm">
+              <!-- STEP 1: Basic Info -->
+              <div class="wizard-content" id="stepContent1">
+                <h5 class="fw-bold text-primary border-bottom pb-2 mb-3" data-i18n="section_biz_contact">1. Contact & Corporate Identity</h5>
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold small"><span data-i18n="label_company_name">Company / Enterprise Name</span> <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="companyName" data-i18n-ph="ph_company_name" placeholder="e.g. Larsen & Toubro Heavy Civil" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold small"><span data-i18n="label_contact_person">Contact Person Name</span> <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="contactPerson" data-i18n-ph="ph_contact_person" placeholder="e.g. Arvind Narayan" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold small"><span data-i18n="label_designation">Official Designation</span> <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="designation" data-i18n-ph="ph_designation" placeholder="e.g. Head - Subcontracts & Procurement" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold small"><span data-i18n="label_email">Work Email Address</span> <span class="text-danger">*</span></label>
+                    <input type="email" class="form-control" id="email" data-i18n-ph="ph_email" placeholder="e.g. procurement@ltcivil.com" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold small"><span data-i18n="label_phone">Official Phone / Mobile</span> <span class="text-danger">*</span></label>
+                    <input type="tel" class="form-control" id="phone" data-i18n-ph="ph_phone" placeholder="+91 22 6752 5656" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold small"><span data-i18n="label_create_password">Password</span> <span class="text-danger">*</span></label>
+                    <input type="password" class="form-control" id="password" data-i18n-ph="ph_password" placeholder="At least 6 characters" minlength="6" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold small"><span data-i18n="label_city">Head Office City</span> <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" id="city" data-i18n-ph="ph_city" placeholder="e.g. Mumbai" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold small"><span data-i18n="label_state">State</span> <span class="text-danger">*</span></label>
+                    <select class="form-select" id="state" required>
+                      <option value="">Select State</option>
+                      <option value="Maharashtra" selected>Maharashtra</option>
+                      <option value="Delhi NCR">Delhi NCR</option>
+                      <option value="Karnataka">Karnataka</option>
+                      <option value="Tamil Nadu">Tamil Nadu</option>
+                      <option value="Telangana">Telangana</option>
+                      <option value="Gujarat">Gujarat</option>
+                      <option value="Madhya Pradesh">Madhya Pradesh</option>
+                      <option value="Uttar Pradesh">Uttar Pradesh</option>
+                      <option value="West Bengal">West Bengal</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="d-flex justify-content-end mt-4">
+                  <button type="button" class="btn btn-primary-custom px-4" id="toStep2Btn" data-i18n="btn_next">
+                    Next: Company Details <i class="bi bi-arrow-right ms-1"></i>
+                  </button>
+                </div>
+              </div>
+
+              <!-- STEP 2: Company Details -->
+              <div class="wizard-content d-none" id="stepContent2">
+                <h5 class="fw-bold text-primary border-bottom pb-2 mb-3" data-i18n="section_biz_details">2. Corporate Scale & Operations</h5>
+
+                <div class="row g-3 mb-3">
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold small"><span data-i18n="label_company_type">Company Type</span> <span class="text-danger">*</span></label>
+                    <select class="form-select" id="companyType" required>
+                      <option value="EPC" selected>EPC (Engineering, Procurement, Construction)</option>
+                      <option value="Developer/Builder">Developer / Builder</option>
+                      <option value="Infrastructure">Infrastructure Specialist</option>
+                      <option value="Industrial">Industrial Plant Builder</option>
+                      <option value="Government/PSU">Government / PSU Contractor</option>
+                      <option value="Commercial">Commercial Real Estate</option>
+                      <option value="Residential">Residential Real Estate</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold small"><span data-i18n="label_company_size">Company Size (Employees)</span> <span class="text-danger">*</span></label>
+                    <select class="form-select" id="companySize" required>
+                      <option value="1-50">1-50 Employees</option>
+                      <option value="51-200">51-200 Employees</option>
+                      <option value="201-500">201-500 Employees</option>
+                      <option value="501-1000">501-1000 Employees</option>
+                      <option value="1000+" selected>1000+ Employees</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold small"><span data-i18n="label_gst">GSTIN Number</span> <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control text-uppercase" id="gstNumber" placeholder="27AAACL0123P1Z9" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold small" data-i18n="label_website">Official Website</label>
+                    <input type="url" class="form-control" id="website" placeholder="https://www.larsentoubro.com">
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold small" data-i18n="label_annual_turnover">Annual Turnover</label>
+                    <select class="form-select" id="annualTurnover">
+                      <option value="Above ₹5000 Cr" selected>Above ₹5,000 Cr</option>
+                      <option value="₹1000 - ₹5000 Cr">₹1,000 - ₹5,000 Cr</option>
+                      <option value="₹500 - ₹1000 Cr">₹500 - ₹1,000 Cr</option>
+                      <option value="₹100 - ₹500 Cr">₹100 - ₹500 Cr</option>
+                      <option value="Below ₹100 Cr">Below ₹100 Cr</option>
+                    </select>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold small" data-i18n="label_address">Head Office Address</label>
+                    <input type="text" class="form-control" id="address" placeholder="e.g. Ballard Estate, Fort, Mumbai 400001">
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label fw-semibold small" data-i18n="label_about_company">About Company / Projects Executed (Max 500 chars)</label>
+                    <textarea class="form-control" id="aboutCompany" rows="3" maxlength="500" placeholder="Briefly describe your flagship infrastructure projects, sectors of operation, and vendor expectations..."></textarea>
+                  </div>
+                </div>
+
+                <div class="d-flex justify-content-between mt-4">
+                  <button type="button" class="btn btn-outline-secondary px-3" id="backToStep1Btn" data-i18n="btn_back">
+                    <i class="bi bi-arrow-left me-1"></i> Back
+                  </button>
+                  <button type="submit" class="btn btn-orange px-5 fw-bold" id="companySubmitBtn" data-i18n="btn_complete_company_reg">
+                    Complete Company Registration <i class="bi bi-check2-circle ms-1"></i>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <div id="footer-container"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="module">
+    import { renderNavbar, renderFooter, showToast } from './js/common.js';
+    import { registerCompany } from './js/auth.js';
+    import { applyTranslations } from './js/i18n.js';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderNavbar('register');
+      renderFooter();
+      applyTranslations();
+
+      const step1 = document.getElementById('stepContent1');
+      const step2 = document.getElementById('stepContent2');
+      const ind1 = document.getElementById('stepIndicator1');
+      const ind2 = document.getElementById('stepIndicator2');
+
+      document.getElementById('toStep2Btn').addEventListener('click', () => {
+        const companyName = document.getElementById('companyName').value.trim();
+        const contactPerson = document.getElementById('contactPerson').value.trim();
+        const designation = document.getElementById('designation').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        const password = document.getElementById('password').value;
+        const city = document.getElementById('city').value.trim();
+        const state = document.getElementById('state').value;
+
+        if (!companyName || !contactPerson || !designation || !email || !phone || !password || !city || !state) {
+          showToast('Please fill in all required fields in Step 1.', 'warning');
+          return;
+        }
+
+        step1.classList.add('d-none');
+        step2.classList.remove('d-none');
+        ind1.classList.remove('active');
+        ind1.classList.add('completed');
+        ind2.classList.add('active');
+      });
+
+      document.getElementById('backToStep1Btn').addEventListener('click', () => {
+        step2.classList.add('d-none');
+        step1.classList.remove('d-none');
+        ind2.classList.remove('active');
+        ind1.classList.add('active');
+      });
+
+      document.getElementById('companyRegForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const submitBtn = document.getElementById('companySubmitBtn');
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span> Creating Account...';
+
+        const companyData = {
+          companyName: document.getElementById('companyName').value.trim(),
+          contactPerson: document.getElementById('contactPerson').value.trim(),
+          designation: document.getElementById('designation').value.trim(),
+          email: document.getElementById('email').value.trim(),
+          phone: document.getElementById('phone').value.trim(),
+          password: document.getElementById('password').value,
+          city: document.getElementById('city').value.trim(),
+          state: document.getElementById('state').value,
+          companyType: document.getElementById('companyType').value,
+          companySize: document.getElementById('companySize').value,
+          gstNumber: document.getElementById('gstNumber').value.trim(),
+          website: document.getElementById('website').value.trim(),
+          annualTurnover: document.getElementById('annualTurnover').value,
+          address: document.getElementById('address').value.trim(),
+          aboutCompany: document.getElementById('aboutCompany').value.trim()
+        };
+
+        const res = await registerCompany(companyData);
+        if (res.success) {
+          showToast('Company registered successfully! Welcome to Pragati Connect.', 'success');
+          setTimeout(() => {
+            window.location.href = 'dashboard-company.html';
+          }, 1000);
+        } else {
+          showToast('Registration failed: ' + (res.error || 'Please try again'), 'error');
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = 'Complete Company Registration <i class="bi bi-check2-circle ms-1"></i>';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
