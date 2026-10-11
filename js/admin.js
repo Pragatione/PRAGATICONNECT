@@ -27,7 +27,7 @@ import {
   deleteDocument, 
   showToast 
 } from './common.js';
-import { loginUser } from './auth.js';
+import { sendEmailOTP, verifyEmailOTP } from './auth.js';
 import { renderStarRatingHtml, recalculateAndUpdateRating } from './reviews.js';
 
 const ADMIN_EMAIL = 'admin@pragaticonnect.in';
@@ -108,67 +108,112 @@ export async function initAdminDashboard() {
 }
 
 /**
- * Setup Admin Login Form & One-Click Demo
+ * Setup passwordless Admin Login using email OTP.
+ * Admin OTPs are sent by EmailJS and verified against Firestore.
  */
 function setupAdminLoginForm() {
   const form = document.getElementById('adminLoginForm');
   const alertEl = document.getElementById('adminLoginAlert');
   const submitBtn = document.getElementById('adminLoginSubmitBtn');
   const spinner = document.getElementById('adminLoginSpinner');
+  const emailInput = document.getElementById('adminLoginEmail');
+  const otpInput = document.getElementById('adminLoginPassword');
+  const demoButton = document.getElementById('demoAdminQuickBtn');
 
-  if (!form) return;
+  if (!form || form.dataset.otpHandlerBound === 'true') return;
+  form.dataset.otpHandlerBound = 'true';
+
+  let otpRequested = false;
+
+  // Reuse the existing password field as the OTP field so no HTML change is required.
+  if (otpInput) {
+    otpInput.type = 'text';
+    otpInput.name = 'adminOtp';
+    otpInput.placeholder = 'Enter 6-digit email OTP';
+    otpInput.autocomplete = 'one-time-code';
+    otpInput.inputMode = 'numeric';
+    otpInput.maxLength = 6;
+    otpInput.value = '';
+    otpInput.required = false;
+    const label = otpInput.id ? document.querySelector(`label[for="${otpInput.id}"]`) : null;
+    if (label) label.textContent = 'Email OTP (enter after requesting code)';
+    otpInput.closest('.mb-3, .form-group, .form-floating')?.classList.add('admin-otp-field');
+  }
+
+  // Demo login bypasses real authentication, so it is disabled for the admin portal.
+  if (demoButton) demoButton.classList.add('d-none');
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    if (alertEl) alertEl.classList.add('d-none');
+    if (alertEl) {
+      alertEl.classList.add('d-none');
+      alertEl.textContent = '';
+    }
     if (spinner) spinner.classList.remove('d-none');
     if (submitBtn) submitBtn.disabled = true;
 
-    const email = document.getElementById('adminLoginEmail').value.trim();
-    const password = document.getElementById('adminLoginPassword').value;
+    const email = (emailInput?.value || '').trim().toLowerCase();
+    const otp = (otpInput?.value || '').trim();
 
-    if (email.toLowerCase() !== ADMIN_EMAIL) {
+    const showError = (message) => {
+      if (alertEl) {
+        alertEl.textContent = message;
+        alertEl.classList.remove('d-none');
+      }
+    };
+
+    try {
+      if (email !== ADMIN_EMAIL) {
+        showError(`Access denied. Only the authorized administrator account (${ADMIN_EMAIL}) can sign in here.`);
+        return;
+      }
+
+      if (!otpRequested) {
+        const result = await sendEmailOTP(email, { requireEmailDelivery: true });
+        if (!result.success) {
+          showError(result.error || 'Could not send the OTP. Please try again.');
+          return;
+        }
+        otpRequested = true;
+        if (otpInput) {
+          otpInput.required = true;
+          otpInput.focus();
+        }
+        if (submitBtn) submitBtn.textContent = 'Verify OTP';
+        showToast('A verification code has been sent to the administrator email.', 'success');
+        return;
+      }
+
+      if (!/^\d{6}$/.test(otp)) {
+        showError('Enter the 6-digit OTP sent to the administrator email.');
+        return;
+      }
+
+      const result = await verifyEmailOTP(email, otp, { requireFirestore: true });
+      if (!result.success) {
+        showError(result.error || 'OTP verification failed. Request a new code and try again.');
+        return;
+      }
+
+      if (!isUserAdmin(result.user)) {
+        setCurrentUser(null);
+        showError('Access denied. This account is not authorized as an administrator.');
+        return;
+      }
+
+      showToast('Admin authenticated successfully!', 'success');
+      await initAdminDashboard();
+    } catch (err) {
+      console.error('Admin OTP authentication failed:', err);
+      showError('Admin sign-in failed. Please try again.');
+    } finally {
       if (spinner) spinner.classList.add('d-none');
       if (submitBtn) submitBtn.disabled = false;
-      if (alertEl) {
-        alertEl.textContent = `Access denied. Only the authorized administrator account (${ADMIN_EMAIL}) has access to this portal.`;
-        alertEl.classList.remove('d-none');
-      }
-      return;
-    }
-
-    const result = await loginUser(email, password);
-
-    if (spinner) spinner.classList.add('d-none');
-    if (submitBtn) submitBtn.disabled = false;
-
-    if (result.success && isUserAdmin(result.user)) {
-      showToast('Admin authenticated successfully!', 'success');
-      setTimeout(() => {
-        initAdminDashboard();
-      }, 500);
-    } else {
-      if (alertEl) {
-        alertEl.textContent = result.error || 'Authentication failed. Please verify credentials.';
-        alertEl.classList.remove('d-none');
-      }
     }
   });
 
-  // One-click demo admin button
-  document.getElementById('demoAdminQuickBtn')?.addEventListener('click', async () => {
-    const emailInput = document.getElementById('adminLoginEmail');
-    const passInput = document.getElementById('adminLoginPassword');
-    if (emailInput) emailInput.value = ADMIN_EMAIL;
-    if (passInput) passInput.value = 'Admin@12345';
-    const result = await loginUser(ADMIN_EMAIL, 'Admin@12345');
-    if (result.success) {
-      showToast('Logged in as System Administrator!', 'success');
-      setTimeout(() => {
-        initAdminDashboard();
-      }, 400);
-    }
-  });
+  // Remove the obsolete demo handler/button entirely from the visible interface.
+  if (demoButton) demoButton.setAttribute('aria-hidden', 'true');
 }
 
 /**
