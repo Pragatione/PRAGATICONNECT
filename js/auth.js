@@ -41,12 +41,27 @@ export function generateRandomOtp() {
 /**
  * Send 6-Digit OTP to User's Email
  */
-export async function sendEmailOTP(email) {
+export async function sendEmailOTP(email, { requireEmailDelivery = false } = {}) {
   if (!email || !email.includes('@')) {
     return { success: false, error: 'Please enter a valid email address.' };
   }
 
   const normalizedEmail = email.trim().toLowerCase();
+
+  // Admin authentication must use real email delivery and server-side OTP storage.
+  if (requireEmailDelivery) {
+    if (!isFirebaseLive || !db) {
+      return { success: false, error: 'Secure admin login is unavailable because Firebase is not configured.' };
+    }
+    if (
+      EMAILJS_SERVICE_ID === 'YOUR_EMAILJS_SERVICE_ID' ||
+      EMAILJS_TEMPLATE_ID === 'YOUR_EMAILJS_TEMPLATE_ID' ||
+      EMAILJS_PUBLIC_KEY === 'YOUR_EMAILJS_PUBLIC_KEY'
+    ) {
+      return { success: false, error: 'Email OTP delivery is not configured. Set your EmailJS service, template, and public key first.' };
+    }
+  }
+
   const otp = generateRandomOtp();
   const expiresAt = Date.now() + 5 * 60 * 1000; // 5 minutes
 
@@ -66,13 +81,20 @@ export async function sendEmailOTP(email) {
       console.log(`🔥 Saved OTP in Firestore for ${normalizedEmail}`);
     } catch (err) {
       console.warn("Firestore OTP write failed, falling back to local storage:", err);
+      if (requireEmailDelivery) {
+        return { success: false, error: 'Could not securely store the OTP. Please try again.' };
+      }
     }
+  } else if (requireEmailDelivery) {
+    return { success: false, error: 'Secure OTP storage is unavailable.' };
   }
 
-  // 2. Always sync to Local Storage for offline/preview resilience
-  const localOtps = JSON.parse(localStorage.getItem(LOCAL_OTPS_KEY) || '{}');
-  localOtps[normalizedEmail] = otpData;
-  localStorage.setItem(LOCAL_OTPS_KEY, JSON.stringify(localOtps));
+  // 2. Local storage is only for non-admin preview flows. Admin OTPs must stay server-side.
+  if (!requireEmailDelivery) {
+    const localOtps = JSON.parse(localStorage.getItem(LOCAL_OTPS_KEY) || '{}');
+    localOtps[normalizedEmail] = otpData;
+    localStorage.setItem(LOCAL_OTPS_KEY, JSON.stringify(localOtps));
+  }
 
   // 3. Send Email via EmailJS
   let emailSentViaSdk = false;
@@ -92,15 +114,20 @@ export async function sendEmailOTP(email) {
     console.warn("EmailJS SDK attempt encountered an error:", sdkErr);
   }
 
-  // 4. Always provide an immediate developer notification if in development or EmailJS keys are unconfigured
-  if (!emailSentViaSdk) {
+  // Strict admin login must never fall back to exposing an OTP in the browser.
+  if (requireEmailDelivery && !emailSentViaSdk) {
+    return { success: false, error: 'We could not send the OTP email. Check your EmailJS configuration and try again.' };
+  }
+
+  // 4. Developer fallback is retained only for non-admin preview flows.
+  if (!emailSentViaSdk && !requireEmailDelivery) {
     console.log(`%c[PRAGATI CONNECT OTP] For ${normalizedEmail}: %c${otp}`, 'color: #1a365d; font-weight: bold;', 'color: #e67e22; font-size: 16px; font-weight: bold;');
     showToast(`🔑 [Development Mode] Your OTP for ${normalizedEmail} is: ${otp}`, 'info', 12000);
   }
 
   return { 
     success: true, 
-    otp, // Returned for dev helper inspection
+    ...(requireEmailDelivery ? {} : { otp }), // Never expose strict admin OTPs to browser code
     expiresAt,
     message: `A 6-digit verification code has been sent to ${normalizedEmail}.` 
   };
@@ -109,13 +136,17 @@ export async function sendEmailOTP(email) {
 /**
  * Verify Entered 6-digit OTP
  */
-export async function verifyEmailOTP(email, enteredOtp) {
+export async function verifyEmailOTP(email, enteredOtp, { requireFirestore = false } = {}) {
   if (!email || !enteredOtp) {
     return { success: false, error: 'Email and 6-digit OTP are required.' };
   }
 
   const normalizedEmail = email.trim().toLowerCase();
   const cleanOtp = enteredOtp.trim();
+
+  if (requireFirestore && (!isFirebaseLive || !db)) {
+    return { success: false, error: 'Secure admin verification is unavailable because Firebase is not configured.' };
+  }
 
   // 1. Fetch OTP record from Firestore or LocalStorage
   let record = null;
@@ -128,10 +159,13 @@ export async function verifyEmailOTP(email, enteredOtp) {
       }
     } catch (err) {
       console.warn("Could not read Firestore OTP, falling back to local:", err);
+      if (requireFirestore) {
+        return { success: false, error: 'Could not securely verify the OTP. Please request a new code.' };
+      }
     }
   }
 
-  if (!record) {
+  if (!record && !requireFirestore) {
     const localOtps = JSON.parse(localStorage.getItem(LOCAL_OTPS_KEY) || '{}');
     record = localOtps[normalizedEmail];
   }
@@ -434,4 +468,3 @@ export async function registerCompany(companyData) {
     return { success: false, error: err.message };
   }
 }
-
